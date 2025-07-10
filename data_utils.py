@@ -1,8 +1,12 @@
 from __future__ import print_function
 
+import os
 import numpy as np
 import torch
 import torch.utils
+import itertools
+from random import Random
+from typing import List, Dict
 from prody import *
 
 confProDy(verbosity="none")
@@ -986,3 +990,95 @@ def featurize(
         output_dict["xyz_37_m"] = input_dict["xyz_37_m"][None,]
 
     return output_dict
+
+#function that combines PDBS for multistate design
+def combine_pdbs(
+    pdb_paths: List[str],
+    out_path: str,
+    gap: float = 1000.0,
+    chain_id_pool: str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+) -> Dict[str, Dict[str, str]]:
+    """
+    Combines multiple PDBs into a single structure using ProDy + parse_PDB, renaming chains
+    and separating each structure spatially by a large gap. Keeps ligand atoms.
+    
+    Args:
+        pdb_paths: List of paths to input PDB files
+        out_path: Path to save the combined output PDB
+        gap: Distance in Angstroms to separate each structure
+        chain_id_pool: List of allowed chain IDs to cycle through
+
+    Returns:
+        chain_dict: dict mapping original pdb file basename (no .pdb) → {old_chain → new_chain}
+    """
+    chain_dict = {}
+    used_chain_ids = set()
+    chain_id_iter = iter(chain_id_pool)
+    combos = sorted(itertools.product([0, 1, 2, 3, 4, 5], repeat=3), key=lambda x: (sum(x), x))
+    rand = Random(0)
+
+    combined = None
+
+    for i, pdb_path in enumerate(pdb_paths):
+        pdb_name = os.path.basename(pdb_path).replace(".pdb", "")
+        print(f"PDB NAME {pdb_name}") #hw 
+        parsed, backbone, other_atoms, icodes, _ = parse_PDB(pdb_path, device="cpu")
+        offset = np.array(combos[i], dtype=np.float32) * gap
+
+        chain_map = {}
+        for old_chain in parsed["chain_list"]:
+            print(f"Old chain: {old_chain}")
+            while True:
+                new_chain = next(chain_id_iter)
+                if new_chain not in used_chain_ids:
+                    break
+            print(f"New Chain: {new_chain}")
+            used_chain_ids.add(new_chain)
+            chain_map[old_chain] = new_chain
+        chain_dict[pdb_name] = chain_map
+
+        # Offset protein backbone atoms and rename chains
+        protein = backbone.copy()
+        print(f"Length of Protein: {len(protein)}")
+        for j in range(len(protein)):
+            coords = protein[j].getCoords()
+            protein[j].setCoords(coords + offset)
+            old_chain = protein[j].getChid()
+            protein[j].setChid(chain_map[old_chain])
+
+        protein.setCoords(np.array([atom.getCoords() for atom in protein]))
+
+        # Offset ligands if present
+        if other_atoms is not None:
+            other_atoms = other_atoms.copy()
+            for j in range(len(other_atoms)):
+                coords = other_atoms[j].getCoords()
+                other_atoms[j].setCoords(coords + offset)
+                orig_chain = other_atoms[j].getChid()
+                if orig_chain in chain_map:
+                    other_atoms[j].setChid(chain_map[orig_chain])
+                else:
+                    # Give ligand a new unique chain if its chain wasn't in protein
+                    while True:
+                        new_chain = next(chain_id_iter)
+                        if new_chain not in used_chain_ids:
+                            break
+                    used_chain_ids.add(new_chain)
+                    other_atoms[j].setChid(new_chain)
+            other_atoms.setCoords(np.array([atom.getCoords() for atom in other_atoms]))
+
+        # Combine this structure’s atoms into the full combined group
+        atoms_to_add = protein + other_atoms if other_atoms is not None else protein
+        if combined is None:
+            combined = atoms_to_add
+        else:
+            combined += atoms_to_add
+
+    print(f"length of combined {len(combined)}")
+    coords = combined.getCoords()
+    if coords is None:
+        raise ValueError("Combined AtomGroup has no coordinates (getCoords() is None).")
+    writePDB(out_path, combined)
+    print(chain_dict)
+    return chain_dict
+
