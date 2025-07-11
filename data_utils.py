@@ -1050,21 +1050,34 @@ def combine_pdbs(
 
         # Offset ligands if present
         if other_atoms is not None:
+            ligand_chain_ids = set(atom.getChid() for atom in other_atoms)
+            ligand_chain_map = {}
+            for lig_chain in ligand_chain_ids:
+                # If not in protein chain_map, assign a unique new chain
+                if lig_chain not in chain_map:
+                    if lig_chain not in used_chain_ids:
+                        #Use the ligand's original chain ID if it is not already taken
+                        ligand_chain_map[lig_chain] = lig_chain
+                        used_chain_ids.add(lig_chain)
+                        chain_map[lig_chain] = lig_chain
+                    else:
+                        #Otherwise, asign a new unused chain ID 
+                        while True:
+                            new_chain = next(chain_id_iter)
+                            if new_chain not in used_chain_ids:
+                                break
+                        used_chain_ids.add(new_chain)
+                        ligand_chain_map[lig_chain] = new_chain
+                        chain_map[lig_chain] = new_chain
+                else:
+                    ligand_chain_map[lig_chain] = chain_map[lig_chain]
+                    
             other_atoms = other_atoms.copy()
             for j in range(len(other_atoms)):
                 coords = other_atoms[j].getCoords()
                 other_atoms[j].setCoords(coords + offset)
                 orig_chain = other_atoms[j].getChid()
-                if orig_chain in chain_map:
-                    other_atoms[j].setChid(chain_map[orig_chain])
-                else:
-                    # Give ligand a new unique chain if its chain wasn't in protein
-                    while True:
-                        new_chain = next(chain_id_iter)
-                        if new_chain not in used_chain_ids:
-                            break
-                    used_chain_ids.add(new_chain)
-                    other_atoms[j].setChid(new_chain)
+                other_atoms[j].setChid(ligand_chain_map[orig_chain])
             other_atoms.setCoords(np.array([atom.getCoords() for atom in other_atoms]))
 
         # Combine this structure’s atoms into the full combined group
