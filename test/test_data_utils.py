@@ -4,7 +4,7 @@ import os
 from Bio.PDB import PDBParser
 
 sys.path.append("/Users/woodsh/LigandMPNN")
-from data_utils import combine_pdbs, parse_PDB
+from data_utils import combine_pdbs, parse_PDB, parse_msd_residue_range, parse_msd_constraints
 
 
 def create_mock_pdb(path, chain_id="A", res_start=1, res_end=3, atom_start=1, ligand=False, ligand_chain_id=None):
@@ -139,4 +139,25 @@ def test_combine_pdbs():
     assert ligand_chain_ids <= all_mapped_chains, \
         f"Ligand chain IDs {ligand_chain_ids} not in mapped chains {all_mapped_chains}"
 
+def test_parse_msd_residue_range():
+    chain, start, end = parse_msd_residue_range("K110-K120")
+    assert chain == "K"
+    assert start == 110
+    assert end == 120
 
+def test_parse_constraints():
+    create_mock_pdb("pdb1.pdb", chain_id="A", res_start=1, res_end=3, atom_start=1)
+    create_mock_pdb("pdb2.pdb", chain_id="A", res_start=1, res_end=3, atom_start=1)
+    
+    chain_map=combine_pdbs(['pdb1.pdb', 'pdb2.pdb'], "combined.pdb", gap=1000)
+    res_list, betas_list = parse_msd_constraints("pdb1:A1-A3:0.5, pdb2:A1-A3:0.5", chain_map)
+
+    assert res_list == [['A1', 'B1'], ['A2', 'B2'], ['A3', 'B3']]
+    assert betas_list == [[0.5, 0.5], [0.5, 0.5], [0.5, 0.5]]
+
+    create_mock_pdb("pdb3_ligand.pdb", chain_id="A", res_start=1, res_end=3, ligand=True, ligand_chain_id="L")
+    chain_map_ligand = combine_pdbs(['combined.pdb', 'pdb3_ligand.pdb'], "combined_ligand.pdb")
+    ligand_res_list, ligand_betas_list = parse_msd_constraints("combined:A1-A3:1.0, pdb3_ligand:A1-A3:0.5, combined:B1-B3:1.0; pdb3_ligand:L4:1.0", chain_map_ligand)
+
+    assert ligand_res_list == [['A1', 'C1', 'B1'], ['A2', 'C2', 'B2'], ['A3', 'C3', 'B3'], ['L4']]
+    assert ligand_betas_list == [[1.0, 0.5, 1.0], [1.0, 0.5, 1.0], [1.0, 0.5, 1.0], [1.0]]

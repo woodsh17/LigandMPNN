@@ -991,6 +991,7 @@ def featurize(
 
     return output_dict
 
+
 #function that combines PDBS for multistate design
 def combine_pdbs(
     pdb_paths: List[str],
@@ -1021,25 +1022,21 @@ def combine_pdbs(
 
     for i, pdb_path in enumerate(pdb_paths):
         pdb_name = os.path.basename(pdb_path).replace(".pdb", "")
-        print(f"PDB NAME {pdb_name}") #hw 
         parsed, backbone, other_atoms, icodes, _ = parse_PDB(pdb_path, device="cpu")
         offset = np.array(combos[i], dtype=np.float32) * gap
 
         chain_map = {}
         for old_chain in parsed["chain_list"]:
-            print(f"Old chain: {old_chain}")
             while True:
                 new_chain = next(chain_id_iter)
                 if new_chain not in used_chain_ids:
                     break
-            print(f"New Chain: {new_chain}")
             used_chain_ids.add(new_chain)
             chain_map[old_chain] = new_chain
         chain_dict[pdb_name] = chain_map
 
         # Offset protein backbone atoms and rename chains
         protein = backbone.copy()
-        print(f"Length of Protein: {len(protein)}")
         for j in range(len(protein)):
             coords = protein[j].getCoords()
             protein[j].setCoords(coords + offset)
@@ -1087,11 +1084,72 @@ def combine_pdbs(
         else:
             combined += atoms_to_add
 
-    print(f"length of combined {len(combined)}")
     coords = combined.getCoords()
     if coords is None:
         raise ValueError("Combined AtomGroup has no coordinates (getCoords() is None).")
     writePDB(out_path, combined)
-    print(chain_dict)
     return chain_dict
 
+def parse_msd_residue_range(symm_res: str):
+    """
+    Parses residue strings like 'A1-A10' or 'A5' to (chain, start, end).
+    """
+    # Check if it's a range
+    if '-' in symm_res:
+        left, right = symm_res.split('-')
+        chain_left, start = left[0], int(left[1:])
+        # Right part may include a chain (e.g., 'A10-A10'), but usually just the number
+        if right[0].isalpha():
+            chain_right, end = right[0], int(right[1:])
+        else:
+            chain_right, end = chain_left, int(right)
+        if chain_left != chain_right:
+            raise ValueError(f"Chain mismatch in residue range: {symm_res}, only map 1 chain per constraint")
+    else:
+        chain_left = symm_res[0]
+        start = end = int(symm_res[1:])
+    return chain_left, start, end
+
+def parse_msd_constraints(constraints_str: str, chain_map:Dict[str, Dict[str, str]]):
+    """
+    Parses multi-state design constraints into symmetry residue and beta lists.
+
+    Args:
+        constraints_str: Constraint string, e.g. 'pdb1:A1-A10:1,pdb2:A1-A10:1; pdb1:B1-B5:1,pdb2:B1-B5:1'
+        chain_map: Mapping from pdb_name to original->remapped chain IDs
+
+    Returns:
+        symmetric_res: List of lists of tied residues (as remapped chain+resnum, e.g. ["A1","B1"])
+        symmetric_betas: List of lists of weights for each tied set (as floats)
+    """
+    symm_per_constraint = [d for d in constraints_str.strip().split(';') if d]
+
+    symmetric_res = []
+    symmetric_betas = []
+
+    for spc in symm_per_constraint:
+        symmetric_str = [s for s in spc.strip().split(",") if s]
+        # symmetric_str holds a SINGLE symm pair INCLUDING pdb/beta data 
+        res_lists = []
+        beta_lists = []
+        for item in symmetric_str:
+            pdb_name, symm_res, beta = [si for si in item.strip().split(':') if si] 
+            chain_letter, res_start, res_end = parse_msd_residue_range(symm_res)
+
+            # Remap chain letter using chain_map
+            new_chain = chain_map[pdb_name][chain_letter]
+
+            res_ids = [f"{new_chain}{i}" for i in range(res_start, res_end+1)]
+
+            res_lists.append(res_ids)
+            beta_lists.append([float(beta)] * len(res_ids))
+
+        # After processing all members of the group, zip to get tied sets
+        if len(set(len(l) for l in res_lists)) != 1:
+            raise ValueError(f"All constraint members must have same number of residues: {spc}")
+
+        for tied_residues, tied_betas in zip(zip(*res_lists), zip(*beta_lists)):
+            symmetric_res.append(list(tied_residues))
+            symmetric_betas.append(list(tied_betas))
+    
+    return symmetric_res, symmetric_betas 
