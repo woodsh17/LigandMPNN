@@ -18,6 +18,8 @@ from data_utils import (
     restype_int_to_str,
     restype_str_to_int,
     write_full_PDB,
+    combine_pdbs,
+    parse_msd_constraints,
 )
 from model_utils import ProteinMPNN
 from prody import writePDB
@@ -120,13 +122,29 @@ def main(args) -> None:
     if args.pdb_path_multi:
         with open(args.pdb_path_multi, "r") as fh:
             pdb_paths = list(json.load(fh))
+
+    elif args.multi_state_pdb_path:
+        msd_dir = os.path.join(base_folder, "msd")
+
+        if not os.path.exists(msd_dir):
+            os.makedirs(msd_dir, exist_ok=True)
+
+        with open(args.multi_state_pdb_path, "r") as fh:
+            # If doing multi state design, combine all pdbs into one
+            msd_path = os.path.join(msd_dir, "msd.pdb")
+            msd_chain_map = combine_pdbs(list(json.load(fh)), msd_path)
+            # this pdb_paths should be the newly created msd pdb, we don't want to be looping over these as if this is multiple runs
+            pdb_paths = [msd_path]
+
     else:
         pdb_paths = [args.pdb_path]
 
     if args.fixed_residues_multi:
         with open(args.fixed_residues_multi, "r") as fh:
             fixed_residues_multi = json.load(fh)
-            fixed_residues_multi = {key:value.split() for key,value in fixed_residues_multi.items()}
+            fixed_residues_multi = {
+                key: value.split() for key, value in fixed_residues_multi.items()
+            }
     else:
         fixed_residues = [item for item in args.fixed_residues.split()]
         fixed_residues_multi = {}
@@ -136,7 +154,9 @@ def main(args) -> None:
     if args.redesigned_residues_multi:
         with open(args.redesigned_residues_multi, "r") as fh:
             redesigned_residues_multi = json.load(fh)
-            redesigned_residues_multi = {key:value.split() for key,value in redesigned_residues_multi.items()}
+            redesigned_residues_multi = {
+                key: value.split() for key, value in redesigned_residues_multi.items()
+            }
     else:
         redesigned_residues = [item for item in args.redesigned_residues.split()]
         redesigned_residues_multi = {}
@@ -186,7 +206,6 @@ def main(args) -> None:
         parse_these_chains_only_list = args.parse_these_chains_only.split(",")
     else:
         parse_these_chains_only_list = []
-
 
     # loop over PDB paths
     for pdb in pdb_paths:
@@ -315,27 +334,60 @@ def main(args) -> None:
             print("These residues will be redesigned: ", PDB_residues_to_be_redesigned)
             print("These residues will be fixed: ", PDB_residues_to_be_fixed)
 
-        # specify which residues are linked
-        if args.symmetry_residues:
+        # specify which residues are linked either through symmetry or multi state design
+        if args.symmetry_residues and args.multi_state_pdb_path:
+            print(
+                "Error: The arguments --symmetry_residues and --multi_state_pdb_path are incompatible"
+            )
+            sys.exit(1)
+
+        elif args.symmetry_residues:
             symmetry_residues_list_of_lists = [
                 x.split(",") for x in args.symmetry_residues.split("|")
             ]
-            remapped_symmetry_residues = []
+            remapped_symmetry_residues = [
+                [encoded_residue_dict[t] for t in t_list]
+                for t_list in symmetry_residues_list_of_lists
+            ]
             for t_list in symmetry_residues_list_of_lists:
                 tmp_list = []
-                for t in t_list:
-                    tmp_list.append(encoded_residue_dict[t])
-                remapped_symmetry_residues.append(tmp_list)
-        else:
+
+        elif args.multi_state_pdb_path or args.multi_state_constraints:
+            # Validate multi-state argument pairing
+            if not args.multi_state_constraints:
+                print(
+                    "Error: Must set multi_state_constraints when running multi state design"
+                )
+                sys.exit(1)
+            if not args.multi_state_pdb_path:
+                print(
+                    "Error: Must set multi_state_pdb_path when using multi_state_constraints"
+                )
+                sys.exit(1)
+
+            symmetry_residues_list_of_lists, symmetry_weights = parse_msd_constraints(
+                args.multi_state_constraints, msd_chain_map
+            )
+            remapped_symmetry_residues = [
+                [encoded_residue_dict[t] for t in t_list]
+                for t_list in symmetry_residues_list_of_lists
+            ]
+
+        elif not args.multi_state_pdb_path:
             remapped_symmetry_residues = [[]]
 
         # specify linking weights
-        if args.symmetry_weights:
+        if args.symmetry_weights and args.multi_state_pdb_path:
+            print(
+                "Error: The arguments --symmetry_weights and --multi_state_pdb_path are incompatible"
+            )
+            sys.exit(1)
+        elif args.symmetry_weights:
             symmetry_weights = [
                 [float(item) for item in x.split(",")]
                 for x in args.symmetry_weights.split("|")
             ]
-        else:
+        elif not args.multi_state_pdb_path:
             symmetry_weights = [[]]
 
         if args.homo_oligomer:
@@ -672,6 +724,61 @@ def main(args) -> None:
                                 seq_out_str,
                             )
                         )
+            # Additional logic to write separate FASTA and PDB for each original PDB input
+            if args.multi_state_pdb_path:
+                restype_3to1 = {v: k for k, v in restype_1to3.items()}
+                # Reverse mapping from chain to original pdb
+                chain_to_pdb = {}
+                for pdb_path, chains in msd_chain_map.items():
+                    for ch in chains:
+                        chain_to_pdb[ch] = os.path.basename(pdb_path).replace(
+                            ".pdb", ""
+                        )
+
+                for pdb_path, chains in msd_chain_map.items():
+                    pdb_name = os.path.basename(pdb_path).replace(".pdb", "")
+                    fasta_base_path = os.path.join(
+                        base_folder, "seqs", pdb_name + args.file_ending
+                    )
+                    pdb_base_path = os.path.join(
+                        base_folder, "backbones", pdb_name + args.file_ending
+                    )
+
+                    for ix in range(S_stack.shape[0]):
+                        # Create subset of backbone for this pdb
+                        backbone_copy = backbone.select(f"chain {' '.join(chains)}")
+                        if other_atoms:
+                            other_copy = other_atoms.select(f"chain {' '.join(chains)}")
+                            full_model = backbone_copy + other_copy
+                        else:
+                            full_model = backbone_copy
+
+                        pdb_out_path = os.path.join(
+                            base_folder, "backbones", f"{pdb_name}_{ix+1}.pdb"
+                        )
+                        writePDB(pdb_out_path, full_model)
+
+                        # Parse structure and extract per-chain sequences
+                        output_dict, _, _, _, _ = parse_PDB(pdb_out_path)
+                        seq_per_chain = []
+                        for ch in chains:
+                            mask = torch.tensor(
+                                [x == ch for x in output_dict["chain_letters"]]
+                            )
+                            resnames = np.array(output_dict["S"])[mask.cpu().numpy()]
+                            seq = "".join(
+                                [restype_int_to_str[int(s)] for s in resnames]
+                            )
+                            seq_per_chain.append(seq)
+
+                        if seq_per_chain:
+                            fasta_path = os.path.join(
+                                base_folder, "seqs", f"{pdb_name}_{ix+1}.fa"
+                            )
+                            with open(fasta_path, "w") as f_indiv:
+                                f_indiv.write(
+                                    f">{pdb_name}, id={ix+1}\n{args.fasta_seq_separation.join(seq_per_chain)}\n"
+                                )
 
 
 if __name__ == "__main__":
@@ -738,7 +845,20 @@ if __name__ == "__main__":
         default="",
         help="Path to json listing PDB paths. {'/path/to/pdb': ''} - only keys will be used.",
     )
-
+    argparser.add_argument(
+        "--multi_state_pdb_path",
+        type=str,
+        default="",
+        help="Path to json listing PDB paths of pdbs to be included in multi-state design.",
+    )
+    argparser.add_argument(
+        "--multi_state_constraints",
+        type=str,
+        default="",
+        help="Semicolon-separated list of multi-state design constraints. "
+        "commas separate individual residue sets within a constraint. "
+        "E.g. PDB1:A10-A15:1,PDB2:A10-A15:0.5;PDB1:A20-A25:1,PDB3:B20-B25:-1",
+    )
     argparser.add_argument(
         "--fixed_residues",
         type=str,
