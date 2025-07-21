@@ -122,26 +122,29 @@ def main(args) -> None:
     if args.pdb_path_multi:
         with open(args.pdb_path_multi, "r") as fh:
             pdb_paths = list(json.load(fh))
-  
+
     elif args.multi_state_pdb_path:
         msd_dir = os.path.join(base_folder, "msd")
-   
+
         if not os.path.exists(msd_dir):
             os.makedirs(msd_dir, exist_ok=True)
-    
+
         with open(args.multi_state_pdb_path, "r") as fh:
-            #hw call code to create msd.pdb, return pathway
+            # If doing multi state design, combine all pdbs into one
             msd_path = os.path.join(msd_dir, "msd.pdb")
-            msd_chain_map = combine_pdbs( list(json.load(fh)), msd_path )
-            pdb_paths = [msd_path] #hw this pdb_paths should be the newly created msd pdb, we don't want to be looping over these as if this is multiple runs
-    
+            msd_chain_map = combine_pdbs(list(json.load(fh)), msd_path)
+            # this pdb_paths should be the newly created msd pdb, we don't want to be looping over these as if this is multiple runs
+            pdb_paths = [msd_path]
+
     else:
         pdb_paths = [args.pdb_path]
 
     if args.fixed_residues_multi:
         with open(args.fixed_residues_multi, "r") as fh:
             fixed_residues_multi = json.load(fh)
-            fixed_residues_multi = {key:value.split() for key,value in fixed_residues_multi.items()}
+            fixed_residues_multi = {
+                key: value.split() for key, value in fixed_residues_multi.items()
+            }
     else:
         fixed_residues = [item for item in args.fixed_residues.split()]
         fixed_residues_multi = {}
@@ -151,7 +154,9 @@ def main(args) -> None:
     if args.redesigned_residues_multi:
         with open(args.redesigned_residues_multi, "r") as fh:
             redesigned_residues_multi = json.load(fh)
-            redesigned_residues_multi = {key:value.split() for key,value in redesigned_residues_multi.items()}
+            redesigned_residues_multi = {
+                key: value.split() for key, value in redesigned_residues_multi.items()
+            }
     else:
         redesigned_residues = [item for item in args.redesigned_residues.split()]
         redesigned_residues_multi = {}
@@ -201,7 +206,6 @@ def main(args) -> None:
         parse_these_chains_only_list = args.parse_these_chains_only.split(",")
     else:
         parse_these_chains_only_list = []
-
 
     # loop over PDB paths
     for pdb in pdb_paths:
@@ -330,9 +334,11 @@ def main(args) -> None:
             print("These residues will be redesigned: ", PDB_residues_to_be_redesigned)
             print("These residues will be fixed: ", PDB_residues_to_be_fixed)
 
-        # specify which residues are linked either through symmetry or multi state design 
+        # specify which residues are linked either through symmetry or multi state design
         if args.symmetry_residues and args.multi_state_pdb_path:
-            print("Error: The arguments --symmetry_residues and --multi_state_pdb_path are incompatible")
+            print(
+                "Error: The arguments --symmetry_residues and --multi_state_pdb_path are incompatible"
+            )
             sys.exit(1)
 
         elif args.symmetry_residues:
@@ -347,26 +353,34 @@ def main(args) -> None:
                 tmp_list = []
 
         elif args.multi_state_pdb_path or args.multi_state_constraints:
-            #Validate multi-state argument pairing
+            # Validate multi-state argument pairing
             if not args.multi_state_constraints:
-                print("Error: Must set multi_state_constraints when running multi state design")
+                print(
+                    "Error: Must set multi_state_constraints when running multi state design"
+                )
                 sys.exit(1)
             if not args.multi_state_pdb_path:
-                print("Error: Must set multi_state_pdb_path when using multi_state_constraints")
+                print(
+                    "Error: Must set multi_state_pdb_path when using multi_state_constraints"
+                )
                 sys.exit(1)
 
-            symmetry_residues_list_of_lists, symmetry_weights = parse_msd_constraints(args.multi_state_constraints, msd_chain_map)
+            symmetry_residues_list_of_lists, symmetry_weights = parse_msd_constraints(
+                args.multi_state_constraints, msd_chain_map
+            )
             remapped_symmetry_residues = [
                 [encoded_residue_dict[t] for t in t_list]
                 for t_list in symmetry_residues_list_of_lists
             ]
- 
+
         elif not args.multi_state_pdb_path:
             remapped_symmetry_residues = [[]]
 
         # specify linking weights
         if args.symmetry_weights and args.multi_state_pdb_path:
-            print("Error: The arguments --symmetry_weights and --multi_state_pdb_path are incompatible")
+            print(
+                "Error: The arguments --symmetry_weights and --multi_state_pdb_path are incompatible"
+            )
             sys.exit(1)
         elif args.symmetry_weights:
             symmetry_weights = [
@@ -446,8 +460,6 @@ def main(args) -> None:
                 + bias_AA_per_residue[None]
                 - 1e8 * omit_AA_per_residue[None]
             )
-            print("remapped_symmetry_residues")
-            print(remapped_symmetry_residues)
             feature_dict["symmetry_residues"] = remapped_symmetry_residues
             feature_dict["symmetry_weights"] = symmetry_weights
 
@@ -719,12 +731,18 @@ def main(args) -> None:
                 chain_to_pdb = {}
                 for pdb_path, chains in msd_chain_map.items():
                     for ch in chains:
-                        chain_to_pdb[ch] = os.path.basename(pdb_path).replace(".pdb", "")
+                        chain_to_pdb[ch] = os.path.basename(pdb_path).replace(
+                            ".pdb", ""
+                        )
 
                 for pdb_path, chains in msd_chain_map.items():
                     pdb_name = os.path.basename(pdb_path).replace(".pdb", "")
-                    fasta_base_path = os.path.join(base_folder, "seqs", pdb_name + args.file_ending)
-                    pdb_base_path = os.path.join(base_folder, "backbones", pdb_name + args.file_ending)
+                    fasta_base_path = os.path.join(
+                        base_folder, "seqs", pdb_name + args.file_ending
+                    )
+                    pdb_base_path = os.path.join(
+                        base_folder, "backbones", pdb_name + args.file_ending
+                    )
 
                     for ix in range(S_stack.shape[0]):
                         # Create subset of backbone for this pdb
@@ -735,22 +753,33 @@ def main(args) -> None:
                         else:
                             full_model = backbone_copy
 
-                        pdb_out_path = os.path.join(base_folder, "backbones", f"{pdb_name}_{ix+1}.pdb")
+                        pdb_out_path = os.path.join(
+                            base_folder, "backbones", f"{pdb_name}_{ix+1}.pdb"
+                        )
                         writePDB(pdb_out_path, full_model)
 
                         # Parse structure and extract per-chain sequences
                         output_dict, _, _, _, _ = parse_PDB(pdb_out_path)
                         seq_per_chain = []
                         for ch in chains:
-                            mask = torch.tensor([x == ch for x in output_dict['chain_letters']])
-                            resnames = np.array(output_dict['S'])[mask.cpu().numpy()]
-                            seq = "".join([restype_int_to_str[int(s)] for s in resnames])
+                            mask = torch.tensor(
+                                [x == ch for x in output_dict["chain_letters"]]
+                            )
+                            resnames = np.array(output_dict["S"])[mask.cpu().numpy()]
+                            seq = "".join(
+                                [restype_int_to_str[int(s)] for s in resnames]
+                            )
                             seq_per_chain.append(seq)
 
                         if seq_per_chain:
-                            fasta_path = os.path.join(base_folder, "seqs", f"{pdb_name}_{ix+1}.fa")
+                            fasta_path = os.path.join(
+                                base_folder, "seqs", f"{pdb_name}_{ix+1}.fa"
+                            )
                             with open(fasta_path, "w") as f_indiv:
-                                f_indiv.write(f">{pdb_name}, id={ix+1}\n{args.fasta_seq_separation.join(seq_per_chain)}\n")
+                                f_indiv.write(
+                                    f">{pdb_name}, id={ix+1}\n{args.fasta_seq_separation.join(seq_per_chain)}\n"
+                                )
+
 
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser(
