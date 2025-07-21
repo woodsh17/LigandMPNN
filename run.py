@@ -712,7 +712,45 @@ def main(args) -> None:
                                 seq_out_str,
                             )
                         )
+            # Additional logic to write separate FASTA and PDB for each original PDB input
+            if args.multi_state_pdb_path:
+                restype_3to1 = {v: k for k, v in restype_1to3.items()}
+                # Reverse mapping from chain to original pdb
+                chain_to_pdb = {}
+                for pdb_path, chains in msd_chain_map.items():
+                    for ch in chains:
+                        chain_to_pdb[ch] = os.path.basename(pdb_path).replace(".pdb", "")
 
+                for pdb_path, chains in msd_chain_map.items():
+                    pdb_name = os.path.basename(pdb_path).replace(".pdb", "")
+                    fasta_base_path = os.path.join(base_folder, "seqs", pdb_name + args.file_ending)
+                    pdb_base_path = os.path.join(base_folder, "backbones", pdb_name + args.file_ending)
+
+                    for ix in range(S_stack.shape[0]):
+                        # Create subset of backbone for this pdb
+                        backbone_copy = backbone.select(f"chain {' '.join(chains)}")
+                        if other_atoms:
+                            other_copy = other_atoms.select(f"chain {' '.join(chains)}")
+                            full_model = backbone_copy + other_copy
+                        else:
+                            full_model = backbone_copy
+
+                        pdb_out_path = os.path.join(base_folder, "backbones", f"{pdb_name}_{ix+1}.pdb")
+                        writePDB(pdb_out_path, full_model)
+
+                        # Parse structure and extract per-chain sequences
+                        output_dict, _, _, _, _ = parse_PDB(pdb_out_path)
+                        seq_per_chain = []
+                        for ch in chains:
+                            mask = torch.tensor([x == ch for x in output_dict['chain_letters']])
+                            resnames = np.array(output_dict['S'])[mask.cpu().numpy()]
+                            seq = "".join([restype_int_to_str[int(s)] for s in resnames])
+                            seq_per_chain.append(seq)
+
+                        if seq_per_chain:
+                            fasta_path = os.path.join(base_folder, "seqs", f"{pdb_name}_{ix+1}.fa")
+                            with open(fasta_path, "w") as f_indiv:
+                                f_indiv.write(f">{pdb_name}, id={ix+1}\n{args.fasta_seq_separation.join(seq_per_chain)}\n")
 
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser(
