@@ -4,6 +4,24 @@ import os
 
 sys.path.append("/Users/woodsh/LigandMPNN")
 
+def test_run_default_main():
+    cmd = [
+        sys.executable,  # this runs the current Python interpreter
+        "-m",
+        "LigandMPNN",
+        "--out_folder",
+        "./test/integration/outputs/default",
+        "--pdb_path",
+        "./inputs/1BC8.pdb",
+        "--seed",
+        "111",
+    ]
+
+    result = subprocess.run(
+        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+    )
+    # Check for successful run and expected outputs
+    assert result.returncode == 0
 
 def test_run_default():
     cmd = [

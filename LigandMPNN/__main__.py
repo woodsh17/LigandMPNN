@@ -24,6 +24,7 @@ from .data_utils import (
 from .model_utils import ProteinMPNN
 from prody import writePDB
 from .sc_utils import Packer, pack_side_chains
+from .cli import get_argparser
 
 
 def main(args) -> None:
