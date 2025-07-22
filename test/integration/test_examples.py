@@ -10,7 +10,7 @@ def test_run_default_main():
         "-m",
         "LigandMPNN",
         "--out_folder",
-        "./test/integration/outputs/default",
+        "./test/integration/outputs/default_main",
         "--pdb_path",
         "./inputs/1BC8.pdb",
         "--seed",
