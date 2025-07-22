@@ -3,7 +3,7 @@ import os
 
 from Bio.PDB import PDBParser
 
-sys.path.append("/Users/woodsh/LigandMPNN")
+sys.path.append("/Users/woodsh/LigandMPNN/LigandMPNN")
 from data_utils import (
     combine_pdbs,
     parse_PDB,
