@@ -7,5 +7,11 @@ The Docker image for RosettaMPNN is coming soon, in the mean time we have create
 
 ProteinMPNN
 -----------
+.. include:: DockerHub_blurb_proteinmpnn.md
+   :parser: myst_parser.sphinx_
+
+
+LigandMPNN
+----------
 .. include:: DockerHub_blurb_ligandmpnn.md
    :parser: myst_parser.sphinx_

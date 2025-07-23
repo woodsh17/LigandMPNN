@@ -29,6 +29,7 @@ html_theme = 'furo'
 html_theme_options = {
     "sidebar_hide_name":True,
     "top_of_page_buttons": ["edit"],
+    ""
     "announcement": "<em>THIS DOCUMENTATION IS CURRENTLY UNDER CONSTRUCTION</em>",
     "light_css_variables": {
         "color-brand-primary": "#F68A33", # Rosetta Teal
@@ -36,6 +37,11 @@ html_theme_options = {
         "color-admonition-background": "#FB35D6", # Rosetta light orange
         "font-stack": "Open Sans, sans-serif",
         "font-stack--headings": "Open Sans, sans-serif",
+        "color-background-hover": "#DCE8E8ff",
+        "color-announcement-background" : "#F68A33dd",
+        "color-announcement-text": "#070707",
+        "color-brand--visited": "#37939B",
+
         },
     "dark_css_variables": {
         "color-brand-primary": "#37939B", # Rosetta teal
