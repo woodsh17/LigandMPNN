@@ -4,6 +4,7 @@ import os
 
 sys.path.append("/Users/woodsh/LigandMPNN")
 
+
 def test_run_default_main():
     cmd = [
         sys.executable,  # this runs the current Python interpreter
@@ -22,6 +23,7 @@ def test_run_default_main():
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
+
 
 def test_run_default():
     cmd = [
@@ -52,7 +54,7 @@ def test_run_temperature():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--temperature", 
+        "--temperature",
         "0.05",
     ]
 
@@ -90,7 +92,7 @@ def test_run_verbose():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--verbose", 
+        "--verbose",
         "0",
     ]
 
@@ -111,7 +113,7 @@ def test_run_save_stats():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--save_stats", 
+        "--save_stats",
         "1",
     ]
 
@@ -132,7 +134,7 @@ def test_run_fixed_residues():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--fixed_residues", 
+        "--fixed_residues",
         "C1 C2 C3 C4 C5 C6 C7 C8 C9 C10",
         "--bias_AA",
         "A:10.0",
@@ -155,7 +157,7 @@ def test_run_redesigned_residues():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--redesigned_residues", 
+        "--redesigned_residues",
         "C1 C2 C3 C4 C5 C6 C7 C8 C9 C10",
         "--bias_AA",
         "A:10.0",
@@ -168,7 +170,6 @@ def test_run_redesigned_residues():
     assert result.returncode == 0
 
 
-
 def test_run_number_of_batches():
     cmd = [
         sys.executable,  # this runs the current Python interpreter
@@ -179,7 +180,7 @@ def test_run_number_of_batches():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--batch_size", 
+        "--batch_size",
         "3",
         "--number_of_batches",
         "5",
@@ -202,7 +203,7 @@ def test_run_bias_AA():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--bias_AA", 
+        "--bias_AA",
         "W:3.0,P:3.0,C:3.0,A:-3.0",
     ]
 
@@ -210,7 +211,7 @@ def test_run_bias_AA():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0 
+    assert result.returncode == 0
 
 
 def test_run_bias_AA_per_residue():
@@ -223,7 +224,7 @@ def test_run_bias_AA_per_residue():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--bias_AA_per_residue", 
+        "--bias_AA_per_residue",
         "./inputs/bias_AA_per_residue.json",
     ]
 
@@ -231,7 +232,8 @@ def test_run_bias_AA_per_residue():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0    
+    assert result.returncode == 0
+
 
 def test_run_omit_AA():
     cmd = [
@@ -243,7 +245,7 @@ def test_run_omit_AA():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--omit_AA", 
+        "--omit_AA",
         "CDFGHILMNPQRSTVWY",
     ]
 
@@ -251,7 +253,8 @@ def test_run_omit_AA():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0 
+    assert result.returncode == 0
+
 
 def test_run_omit_AA_per_residue():
     cmd = [
@@ -263,7 +266,7 @@ def test_run_omit_AA_per_residue():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--omit_AA_per_residue", 
+        "--omit_AA_per_residue",
         "./inputs/omit_AA_per_residue.json",
     ]
 
@@ -271,7 +274,7 @@ def test_run_omit_AA_per_residue():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0 
+    assert result.returncode == 0
 
 
 def test_run_symmetry():
@@ -284,7 +287,7 @@ def test_run_symmetry():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--symmetry_residues", 
+        "--symmetry_residues",
         "C1,C2,C3|C4,C5|C6,C7",
         "--symmetry_weights",
         "0.33,0.33,0.33|0.5,0.5|0.5,0.5",
@@ -294,8 +297,8 @@ def test_run_symmetry():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0 
- 
+    assert result.returncode == 0
+
 
 def test_run_homo_oligomer():
     cmd = [
@@ -307,7 +310,7 @@ def test_run_homo_oligomer():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--homo_oligomer", 
+        "--homo_oligomer",
         "1",
         "--number_of_batches",
         "2",
@@ -317,7 +320,7 @@ def test_run_homo_oligomer():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0 
+    assert result.returncode == 0
 
 
 def test_run_file_ending():
@@ -330,7 +333,7 @@ def test_run_file_ending():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--file_ending", 
+        "--file_ending",
         "_xyz",
     ]
 
@@ -338,7 +341,7 @@ def test_run_file_ending():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0 
+    assert result.returncode == 0
 
 
 def test_run_zero_indexed():
@@ -351,7 +354,7 @@ def test_run_zero_indexed():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--zero_indexed", 
+        "--zero_indexed",
         "1",
         "--number_of_batches",
         "2",
@@ -361,7 +364,8 @@ def test_run_zero_indexed():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0  
+    assert result.returncode == 0
+
 
 def test_run_chains_to_design():
     cmd = [
@@ -373,7 +377,7 @@ def test_run_chains_to_design():
         "./inputs/4GYT.pdb",
         "--seed",
         "111",
-        "--chains_to_design", 
+        "--chains_to_design",
         "A,B",
     ]
 
@@ -394,7 +398,7 @@ def test_run_parse_these_chains_only():
         "./inputs/4GYT.pdb",
         "--seed",
         "111",
-        "--parse_these_chains_only", 
+        "--parse_these_chains_only",
         "A,B",
     ]
 
@@ -402,7 +406,7 @@ def test_run_parse_these_chains_only():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0  
+    assert result.returncode == 0
 
 
 def test_run_ligand_mpnn():
@@ -421,7 +425,7 @@ def test_run_ligand_mpnn():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0 
+    assert result.returncode == 0
 
 
 def test_run_checkpoint_ligand_mpnn():
@@ -434,7 +438,7 @@ def test_run_checkpoint_ligand_mpnn():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--checkpoint_ligand_mpnn", 
+        "--checkpoint_ligand_mpnn",
         "./model_params/ligandmpnn_v_32_005_25.pt",
         "--model_type",
         "ligand_mpnn",
@@ -457,7 +461,7 @@ def test_run_ligand_mpnn_use_atom_context():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--ligand_mpnn_use_atom_context", 
+        "--ligand_mpnn_use_atom_context",
         "0",
         "--model_type",
         "ligand_mpnn",
@@ -480,7 +484,7 @@ def test_run_ligand_mpnn_use_side_chain_context():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
-        "--ligand_mpnn_use_side_chain_context", 
+        "--ligand_mpnn_use_side_chain_context",
         "1",
         "--model_type",
         "ligand_mpnn",
@@ -513,7 +517,7 @@ def test_run_soluble_mpnn():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0 
+    assert result.returncode == 0
 
 
 def test_run_global_label_membrane_mpnn():
@@ -557,7 +561,7 @@ def test_run_global_label_membrane_mpnn():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0 
+    assert result.returncode == 0
 
 
 def test_run_per_residue_label_membrane_mpnn():
@@ -622,7 +626,7 @@ def test_run_pdb_path_multi():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0 
+    assert result.returncode == 0
 
 
 def test_run_fixed_residues_multi():
@@ -665,7 +669,7 @@ def test_run_redesigned_residues_multi():
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
-   
+
 
 def test_run_omit_AA_per_residue_multi():
     cmd = [
@@ -685,7 +689,7 @@ def test_run_omit_AA_per_residue_multi():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0  
+    assert result.returncode == 0
 
 
 def test_run_bias_AA_per_residue_multi():
@@ -706,7 +710,7 @@ def test_run_bias_AA_per_residue_multi():
         cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
-    assert result.returncode == 0 
+    assert result.returncode == 0
 
 
 def test_run_ligand_mpnn_cutoff_for_score():

@@ -1,17 +1,18 @@
 import argparse
 
+
 def get_argparser(
-        include_main_args=True,
-        include_score_args=False,
+    include_main_args=True,
+    include_score_args=False,
 ):
     """
-    Constructs and returns an argument parser for LigandMPNN. 
+    Constructs and returns an argument parser for LigandMPNN.
 
     This parser includes a comprehensive set of arguments for controlling model type,
-    checkpoint paths, sequence design options, input/output specifications, symmetry constraints, 
-    ligand context usage, transmembrane settings, and optional side chain packing and scoring routines. 
+    checkpoint paths, sequence design options, input/output specifications, symmetry constraints,
+    ligand context usage, transmembrane settings, and optional side chain packing and scoring routines.
 
-    Parameters: 
+    Parameters:
         include_main_args (bool): If True, includes arguments specific to the main design and packing
             functionality (e.g., packing options, amino acid biasing, temperature, etc.).
         include_score_args (bool): If True, includes arguments specific to scoring functionalities
@@ -23,7 +24,7 @@ def get_argparser(
     argparser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    # Arguments always included 
+    # Arguments always included
     argparser.add_argument(
         "--model_type",
         type=str,

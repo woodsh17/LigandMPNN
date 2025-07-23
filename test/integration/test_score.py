@@ -4,6 +4,7 @@ import os
 
 sys.path.append("/Users/woodsh/LigandMPNN")
 
+
 def test_score_autoregressive_score_w_seq():
     cmd = [
         sys.executable,  # this runs the current Python interpreter
@@ -22,7 +23,6 @@ def test_score_autoregressive_score_w_seq():
         "1",
         "--number_of_batches",
         "10",
-
     ]
 
     result = subprocess.run(
@@ -30,6 +30,7 @@ def test_score_autoregressive_score_w_seq():
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
+
 
 def test_score_autoregressive_score_wo_seq():
     cmd = [
@@ -49,7 +50,6 @@ def test_score_autoregressive_score_wo_seq():
         "1",
         "--number_of_batches",
         "10",
-
     ]
 
     result = subprocess.run(
@@ -57,6 +57,7 @@ def test_score_autoregressive_score_wo_seq():
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
+
 
 def test_score_single_aa_score_w_seq():
     cmd = [
@@ -78,7 +79,6 @@ def test_score_single_aa_score_w_seq():
         "1",
         "--number_of_batches",
         "10",
-
     ]
 
     result = subprocess.run(
@@ -108,7 +108,6 @@ def test_score_single_aa_score_wo_seq():
         "1",
         "--number_of_batches",
         "10",
-
     ]
 
     result = subprocess.run(

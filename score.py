@@ -17,6 +17,7 @@ from LigandMPNN.data_utils import (
 from LigandMPNN.model_utils import ProteinMPNN
 from LigandMPNN.cli import get_argparser
 
+
 def main(args) -> None:
     """
     Inference function
@@ -110,7 +111,7 @@ def main(args) -> None:
             device=device,
             chains=args.parse_these_chains_only,
             parse_all_atoms=args.ligand_mpnn_use_side_chain_context,
-            parse_atoms_with_zero_occupancy=args.parse_atoms_with_zero_occupancy
+            parse_atoms_with_zero_occupancy=args.parse_atoms_with_zero_occupancy,
         )
         # make chain_letter + residue_idx + insertion_code mapping to integers
         R_idx_list = list(protein_dict["R_idx"].cpu().numpy())  # residue indices
@@ -284,9 +285,13 @@ def main(args) -> None:
                     device=device,
                 )
                 if args.autoregressive_score:
-                    score_dict = model.score(feature_dict, use_sequence=args.use_sequence)
+                    score_dict = model.score(
+                        feature_dict, use_sequence=args.use_sequence
+                    )
                 elif args.single_aa_score:
-                    score_dict = model.single_aa_score(feature_dict, use_sequence=args.use_sequence)
+                    score_dict = model.single_aa_score(
+                        feature_dict, use_sequence=args.use_sequence
+                    )
                 else:
                     print("Set either autoregressive_score or single_aa_score to True")
                     sys.exit()
@@ -307,7 +312,9 @@ def main(args) -> None:
             out_dict["decoding_order"] = decoding_order_stack.cpu().numpy()
             out_dict["native_sequence"] = feature_dict["S"][0].cpu().numpy()
             out_dict["mask"] = feature_dict["mask"][0].cpu().numpy()
-            out_dict["chain_mask"] = feature_dict["chain_mask"][0].cpu().numpy() #this affects decoding order
+            out_dict["chain_mask"] = (
+                feature_dict["chain_mask"][0].cpu().numpy()
+            )  # this affects decoding order
             out_dict["seed"] = seed
             out_dict["alphabet"] = alphabet
             out_dict["residue_names"] = encoded_residue_dict_rev
@@ -327,7 +334,6 @@ def main(args) -> None:
             out_dict["mean_of_probs"] = mean_dict
             out_dict["std_of_probs"] = std_dict
             torch.save(out_dict, output_stats_path)
-
 
 
 if __name__ == "__main__":
