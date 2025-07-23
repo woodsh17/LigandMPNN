@@ -8,7 +8,8 @@ sys.path.append("/Users/woodsh/LigandMPNN")
 def test_run_msd_single_constraint():
     cmd = [
         sys.executable,  # this runs the current Python interpreter
-        "run.py",
+        "-m",
+        "LigandMPNN",
         "--out_folder",
         "./test/integration/outputs/single_constraint",
         "--multi_state_pdb_path",
@@ -51,7 +52,8 @@ def test_run_msd_single_constraint():
 def test_run_msd_mulitple_constraint():
     cmd = [
         sys.executable,  # this runs the current Python interpreter
-        "run.py",
+        "-m",
+        "LigandMPNN",
         "--out_folder",
         "./test/integration/outputs/msd_multiple_constraint",
         "--multi_state_pdb_path",
