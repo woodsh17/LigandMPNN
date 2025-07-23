@@ -7,14 +7,15 @@ import sys
 import numpy as np
 import torch
 
-from data_utils import (
+from LigandMPNN.data_utils import (
     element_dict_rev,
     alphabet,
     restype_int_to_str,
     featurize,
     parse_PDB,
 )
-from model_utils import ProteinMPNN
+from LigandMPNN.model_utils import ProteinMPNN
+from LigandMPNN.cli import get_argparser
 
 
 def main(args) -> None:
@@ -110,7 +111,7 @@ def main(args) -> None:
             device=device,
             chains=args.parse_these_chains_only,
             parse_all_atoms=args.ligand_mpnn_use_side_chain_context,
-            parse_atoms_with_zero_occupancy=args.parse_atoms_with_zero_occupancy
+            parse_atoms_with_zero_occupancy=args.parse_atoms_with_zero_occupancy,
         )
         # make chain_letter + residue_idx + insertion_code mapping to integers
         R_idx_list = list(protein_dict["R_idx"].cpu().numpy())  # residue indices
@@ -284,9 +285,13 @@ def main(args) -> None:
                     device=device,
                 )
                 if args.autoregressive_score:
-                    score_dict = model.score(feature_dict, use_sequence=args.use_sequence)
+                    score_dict = model.score(
+                        feature_dict, use_sequence=args.use_sequence
+                    )
                 elif args.single_aa_score:
-                    score_dict = model.single_aa_score(feature_dict, use_sequence=args.use_sequence)
+                    score_dict = model.single_aa_score(
+                        feature_dict, use_sequence=args.use_sequence
+                    )
                 else:
                     print("Set either autoregressive_score or single_aa_score to True")
                     sys.exit()
@@ -307,7 +312,9 @@ def main(args) -> None:
             out_dict["decoding_order"] = decoding_order_stack.cpu().numpy()
             out_dict["native_sequence"] = feature_dict["S"][0].cpu().numpy()
             out_dict["mask"] = feature_dict["mask"][0].cpu().numpy()
-            out_dict["chain_mask"] = feature_dict["chain_mask"][0].cpu().numpy() #this affects decoding order
+            out_dict["chain_mask"] = (
+                feature_dict["chain_mask"][0].cpu().numpy()
+            )  # this affects decoding order
             out_dict["seed"] = seed
             out_dict["alphabet"] = alphabet
             out_dict["residue_names"] = encoded_residue_dict_rev
@@ -329,221 +336,7 @@ def main(args) -> None:
             torch.save(out_dict, output_stats_path)
 
 
-
 if __name__ == "__main__":
-    argparser = argparse.ArgumentParser(
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )
-
-    argparser.add_argument(
-        "--model_type",
-        type=str,
-        default="protein_mpnn",
-        help="Choose your model: protein_mpnn, ligand_mpnn, per_residue_label_membrane_mpnn, global_label_membrane_mpnn, soluble_mpnn",
-    )
-    # protein_mpnn - original ProteinMPNN trained on the whole PDB exluding non-protein atoms
-    # ligand_mpnn - atomic context aware model trained with small molecules, nucleotides, metals etc on the whole PDB
-    # per_residue_label_membrane_mpnn - ProteinMPNN model trained with addition label per residue specifying if that residue is buried or exposed
-    # global_label_membrane_mpnn - ProteinMPNN model trained with global label per PDB id to specify if protein is transmembrane
-    # soluble_mpnn - ProteinMPNN trained only on soluble PDB ids
-    argparser.add_argument(
-        "--checkpoint_protein_mpnn",
-        type=str,
-        default="./model_params/proteinmpnn_v_48_020.pt",
-        help="Path to model weights.",
-    )
-    argparser.add_argument(
-        "--checkpoint_ligand_mpnn",
-        type=str,
-        default="./model_params/ligandmpnn_v_32_010_25.pt",
-        help="Path to model weights.",
-    )
-    argparser.add_argument(
-        "--checkpoint_per_residue_label_membrane_mpnn",
-        type=str,
-        default="./model_params/per_residue_label_membrane_mpnn_v_48_020.pt",
-        help="Path to model weights.",
-    )
-    argparser.add_argument(
-        "--checkpoint_global_label_membrane_mpnn",
-        type=str,
-        default="./model_params/global_label_membrane_mpnn_v_48_020.pt",
-        help="Path to model weights.",
-    )
-    argparser.add_argument(
-        "--checkpoint_soluble_mpnn",
-        type=str,
-        default="./model_params/solublempnn_v_48_020.pt",
-        help="Path to model weights.",
-    )
-
-    argparser.add_argument("--verbose", type=int, default=1, help="Print stuff")
-
-    argparser.add_argument(
-        "--pdb_path", type=str, default="", help="Path to the input PDB."
-    )
-    argparser.add_argument(
-        "--pdb_path_multi",
-        type=str,
-        default="",
-        help="Path to json listing PDB paths. {'/path/to/pdb': ''} - only keys will be used.",
-    )
-
-    argparser.add_argument(
-        "--fixed_residues",
-        type=str,
-        default="",
-        help="Provide fixed residues, A12 A13 A14 B2 B25",
-    )
-    argparser.add_argument(
-        "--fixed_residues_multi",
-        type=str,
-        default="",
-        help="Path to json mapping of fixed residues for each pdb i.e., {'/path/to/pdb': 'A12 A13 A14 B2 B25'}",
-    )
-
-    argparser.add_argument(
-        "--redesigned_residues",
-        type=str,
-        default="",
-        help="Provide to be redesigned residues, everything else will be fixed, A12 A13 A14 B2 B25",
-    )
-    argparser.add_argument(
-        "--redesigned_residues_multi",
-        type=str,
-        default="",
-        help="Path to json mapping of redesigned residues for each pdb i.e., {'/path/to/pdb': 'A12 A13 A14 B2 B25'}",
-    )
-
-    argparser.add_argument(
-        "--symmetry_residues",
-        type=str,
-        default="",
-        help="Add list of lists for which residues need to be symmetric, e.g. 'A12,A13,A14|C2,C3|A5,B6'",
-    )
-    
-    argparser.add_argument(
-        "--homo_oligomer",
-        type=int,
-        default=0,
-        help="Setting this to 1 will automatically set --symmetry_residues and --symmetry_weights to do homooligomer design with equal weighting.",
-    )
-
-    argparser.add_argument(
-        "--out_folder",
-        type=str,
-        help="Path to a folder to output scores, e.g. /home/out/",
-    )
-    argparser.add_argument(
-        "--file_ending", type=str, default="", help="adding_string_to_the_end"
-    )
-    argparser.add_argument(
-        "--zero_indexed",
-        type=str,
-        default=0,
-        help="1 - to start output PDB numbering with 0",
-    )
-    argparser.add_argument(
-        "--seed",
-        type=int,
-        default=0,
-        help="Set seed for torch, numpy, and python random.",
-    )
-    argparser.add_argument(
-        "--batch_size",
-        type=int,
-        default=1,
-        help="Number of sequence to generate per one pass.",
-    )
-    argparser.add_argument(
-        "--number_of_batches",
-        type=int,
-        default=1,
-        help="Number of times to design sequence using a chosen batch size.",
-    )
-
-    argparser.add_argument(
-        "--ligand_mpnn_use_atom_context",
-        type=int,
-        default=1,
-        help="1 - use atom context, 0 - do not use atom context.",
-    )
-
-    argparser.add_argument(
-        "--ligand_mpnn_use_side_chain_context",
-        type=int,
-        default=0,
-        help="Flag to use side chain atoms as ligand context for the fixed residues",
-    )
-
-    argparser.add_argument(
-        "--ligand_mpnn_cutoff_for_score",
-        type=float,
-        default=8.0,
-        help="Cutoff in angstroms between protein and context atoms to select residues for reporting score.",
-    )
-
-    argparser.add_argument(
-        "--chains_to_design",
-        type=str,
-        default=None,
-        help="Specify which chains to redesign, all others will be kept fixed.",
-    )
-
-    argparser.add_argument(
-        "--parse_these_chains_only",
-        type=str,
-        default="",
-        help="Provide chains letters for parsing backbones, 'ABCF'",
-    )
-
-    argparser.add_argument(
-        "--transmembrane_buried",
-        type=str,
-        default="",
-        help="Provide buried residues when using checkpoint_per_residue_label_membrane_mpnn model, A12 A13 A14 B2 B25",
-    )
-    argparser.add_argument(
-        "--transmembrane_interface",
-        type=str,
-        default="",
-        help="Provide interface residues when using checkpoint_per_residue_label_membrane_mpnn model, A12 A13 A14 B2 B25",
-    )
-
-    argparser.add_argument(
-        "--global_transmembrane_label",
-        type=int,
-        default=0,
-        help="Provide global label for global_label_membrane_mpnn model. 1 - transmembrane, 0 - soluble",
-    )
-
-    argparser.add_argument(
-        "--parse_atoms_with_zero_occupancy",
-        type=int,
-        default=0,
-        help="To parse atoms with zero occupancy in the PDB input files. 0 - do not parse, 1 - parse atoms with zero occupancy",
-    )
-
-    argparser.add_argument(
-        "--use_sequence",
-        type=int,
-        default=1,
-        help="1 - get scores using amino acid sequence info; 0 - get scores using backbone info only",
-    )
-
-    argparser.add_argument(
-        "--autoregressive_score",
-        type=int,
-        default=0,
-        help="1 - run autoregressive scoring function; p(AA_1|backbone); p(AA_2|backbone, AA_1) etc, 0 - False",
-    )
-
-    argparser.add_argument(
-        "--single_aa_score",
-        type=int,
-        default=1,
-        help="1 - run single amino acid scoring function; p(AA_i|backbone, AA_{all except ith one}), 0 - False",
-    )
-
-    args = argparser.parse_args()
+    parser = get_argparser(include_score_args=True)
+    args = parser.parse_args()
     main(args)
