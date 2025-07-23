@@ -1,0 +1,4 @@
+:root {
+    --sd-color-primary: #007bff;
+    --sd-color-primary-highlight: #d900d2;
+}
