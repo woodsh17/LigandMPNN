@@ -14,7 +14,7 @@ release = 'v1.0.0'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["myst_parser", "sphinx_design"]
+extensions = ["myst_parser"]
 myst_enable_extensions = ["colon_fence"]
 
 templates_path = ['_templates']
