@@ -419,6 +419,8 @@ def test_run_ligand_mpnn():
         "./inputs/1BC8.pdb",
         "--seed",
         "111",
+        "--model_type",
+        "ligand_mpnn",
     ]
 
     result = subprocess.run(

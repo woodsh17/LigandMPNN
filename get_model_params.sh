@@ -45,3 +45,9 @@ wget -q https://files.ipd.uw.edu/pub/ligandmpnn/solublempnn_v_48_030.pt -O $1"/s
 
 #LigandMPNN for side-chain packing (multi-step denoising model)
 wget -q https://files.ipd.uw.edu/pub/ligandmpnn/ligandmpnn_sc_v_32_002_16.pt -O $1"/ligandmpnn_sc_v_32_002_16.pt"
+
+#HypderMPNN for designing thermostable proteins learned from hyperthermophilic organisms with proteinmpnn model
+wget -q https://raw.githubusercontent.com/meilerlab/HyperMPNN/1877ea181d23fe84fb33147748e1367e5a02b6a9/retrained_models/v48_002_epoch240_hyper.pt -O $1"/hypermpnn_v48_002_epoch240.pt"
+wget -q https://raw.githubusercontent.com/meilerlab/HyperMPNN/1877ea181d23fe84fb33147748e1367e5a02b6a9/retrained_models/v48_010_epoch300_hyper.pt -O $1"/hypdermpnn_v48_010_epoch300.pt"
+wget -q https://raw.githubusercontent.com/meilerlab/HyperMPNN/1877ea181d23fe84fb33147748e1367e5a02b6a9/retrained_models/v48_020_epoch300_hyper.pt -O $1"/hypermpnn_v48_020_epoch300.pt"
+wget -q https://raw.githubusercontent.com/meilerlab/HyperMPNN/1877ea181d23fe84fb33147748e1367e5a02b6a9/retrained_models/v48_030_epoch300_hyper.pt -O $1"/hypermpnn_v48_030_epoch300.pt"
