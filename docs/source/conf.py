@@ -40,8 +40,7 @@ html_theme_options = {
         "color-background-hover": "#DCE8E8ff",
         "color-announcement-background" : "#F68A33dd",
         "color-announcement-text": "#070707",
-        "color-brand--visited": "#37939B",
-
+        "color-brand-visited": "#37939B",
         },
     "dark_css_variables": {
         "color-brand-primary": "#37939B", # Rosetta teal
