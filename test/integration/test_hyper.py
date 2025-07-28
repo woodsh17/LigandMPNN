@@ -2,7 +2,7 @@ import subprocess
 import sys
 import os
 
-sys.path.append("/Users/woodsh/LigandMPNN")
+sys.path.append("/Users/woodsh/RosettaMPNN")
 
 
 def test_run_hyper_for_proteinmpnn():
@@ -22,7 +22,7 @@ def test_run_hyper_for_proteinmpnn():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     print("STDOUT:", result.stdout)
     print("STDERR:", result.stderr)
@@ -47,7 +47,7 @@ def test_run_hyper_for_proteinmpnn_e240():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     print("STDOUT:", result.stdout)
     print("STDERR:", result.stderr)
@@ -72,7 +72,7 @@ def test_run_hyper_for_proteinmpnn_01():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     print("STDOUT:", result.stdout)
     print("STDERR:", result.stderr)
@@ -97,7 +97,7 @@ def test_run_hyper_for_proteinmpnn_03():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     print("STDOUT:", result.stdout)
     print("STDERR:", result.stderr)

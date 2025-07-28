@@ -2,7 +2,7 @@ import subprocess
 import sys
 import os
 
-sys.path.append("/Users/woodsh/LigandMPNN")
+sys.path.append("/Users/woodsh/RosettaMPNN")
 
 
 def test_score_autoregressive_score_w_seq():
@@ -26,7 +26,7 @@ def test_score_autoregressive_score_w_seq():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -53,7 +53,7 @@ def test_score_autoregressive_score_wo_seq():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -82,7 +82,7 @@ def test_score_single_aa_score_w_seq():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -111,7 +111,7 @@ def test_score_single_aa_score_wo_seq():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0

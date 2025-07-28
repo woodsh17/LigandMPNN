@@ -2,14 +2,14 @@ import subprocess
 import sys
 import os
 
-sys.path.append("/Users/woodsh/LigandMPNN")
+sys.path.append("/Users/woodsh/RosettaMPNN")
 
 
 def test_run_msd_single_constraint():
     cmd = [
         sys.executable,  # this runs the current Python interpreter
         "-m",
-        "LigandMPNN",
+        "RosettaMPNN",
         "--out_folder",
         "./test/integration/outputs/single_constraint",
         "--multi_state_pdb_path",
@@ -19,7 +19,7 @@ def test_run_msd_single_constraint():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -53,7 +53,7 @@ def test_run_msd_mulitple_constraint():
     cmd = [
         sys.executable,  # this runs the current Python interpreter
         "-m",
-        "LigandMPNN",
+        "RosettaMPNN",
         "--out_folder",
         "./test/integration/outputs/msd_multiple_constraint",
         "--multi_state_pdb_path",
@@ -63,7 +63,7 @@ def test_run_msd_mulitple_constraint():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0

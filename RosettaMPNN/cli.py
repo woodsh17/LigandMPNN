@@ -6,7 +6,7 @@ def get_argparser(
     include_score_args=False,
 ):
     """
-    Constructs and returns an argument parser for LigandMPNN.
+    Constructs and returns an argument parser for RosettaMPNN.
 
     This parser includes a comprehensive set of arguments for controlling model type,
     checkpoint paths, sequence design options, input/output specifications, symmetry constraints,
