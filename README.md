@@ -51,8 +51,8 @@ bash get_model_params.sh model_params
 ```
 3. Setup conda/or other environment
 ```
-conda create -n rosettampnn python=3.11
-conda activate rosettampnn
+conda create -n rosettampnn_env python=3.11
+conda activate rosettampnn_env
 pip install -r requirements.txt
 ```
 **Whenever you want to run RosettaMPNN you will need to activate your RosettaMPNN environment via `conda activate rosettampnn`**
