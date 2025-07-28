@@ -48,6 +48,7 @@ html_theme_options = {
         "color-admonition-background": "#FB35D6", # Rosetta light orange
         "font-stack": "Open Sans, sans-serif",
         "font-stack--headings": "Open Sans, sans-serif",
+        "color-brand-visited": "#37939B",
         }
     }
 html_static_path = ['_static']
