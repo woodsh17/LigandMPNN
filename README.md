@@ -51,7 +51,7 @@ bash get_model_params.sh model_params
 ```
 3. Setup conda/or other environment
 ```
-conda create -n rosettampnn_env python=3.11
+conda create -n rosettampnn python=3.11
 conda activate rosettampnn
 pip install -r requirements.txt
 ```
