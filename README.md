@@ -55,12 +55,14 @@ conda create -n rosettampnn_env python=3.11
 conda activate rosettampnn
 pip install -r requirements.txt
 ```
-***Whenever you want to run RosettaMPNN you will need to activate your RosettaMPNN environment via `conda activate rosettampnn`***
+**Whenever you want to run RosettaMPNN you will need to activate your RosettaMPNN environment via `conda activate rosettampnn`**
+
 4. Add RosettaMPNN to your PYTHONPATH
 ```
 export PYTHONPATH=/PATH/TO/RosettaMPNN:$PYTHONPATH
 ```
 
+### Docker image
 _Docker image coming soon_
 
 ### Usage
@@ -102,13 +104,13 @@ python -m RosettaMPNN \
 If this runs successfully, you will have the same directories as before, with an additional `msd` directory where a pdb (`msd.pdb`)that combines all pdb files listed in the input json file are combined into one pdb file and separated in space. 
 
 
-For more information on how to run RosettaMPNN and different options available see the documentation. 
+For more information on how to run RosettaMPNN and different options available see the [documentation]((https://woodsh17.github.io/RosettaMPNN/)). 
 
 ---
 ### Developing 
 We welcome contributions to improve RosettaMPNN. We use a fork-and-PR system for contribution. To contribute to RosettaMPNN, please fork the RosettaMPNN repo under your own Github user space. You can then develop your additions in your own space. Once you're ready to contribute it back, open a PR agaist the main RosettaMPNN repo.
 
 ### Support & Help
-You can find more detailed documentation here: 
+You can find more detailed documentation on the[documentation site](https://woodsh17.github.io/RosettaMPNN/)
 
 For problems running RosettaMPNN please submit a github issue or submit your question [here](https://rosettacommons.org/contact/). 
