@@ -101,7 +101,8 @@ python -m RosettaMPNN \
 --multi_state_constraints 4GYT_dimer:A7-A183:0.5,4GYT_dimer:B7-B183:0.5,4GYT_monomer:A7-A183:1 \
 --checkpoint_protein_mpnn ~/RosettaMPNN/model_params/proteinmpnn_v_48_020.pt 
 ```
-If this runs successfully, you will have the same directories as before, with an additional `msd` directory where a pdb (`msd.pdb`)that combines all pdb files listed in the input json file are combined into one pdb file and separated in space. 
+If this runs successfully, you will have the same directories as before, with an additional `msd` directory where a pdb file (`msd.pdb`)that combines all pdb files listed in the input json file are combined into one pdb file and separated in space. There will be additional fasta files and PDB files in `seqs` and `backbones` directories for the different structures included in your input. 
+
 
 
 For more information on how to run RosettaMPNN and different options available see the [documentation]((https://woodsh17.github.io/RosettaMPNN/)). 
@@ -111,6 +112,8 @@ For more information on how to run RosettaMPNN and different options available s
 We welcome contributions to improve RosettaMPNN. We use a fork-and-PR system for contribution. To contribute to RosettaMPNN, please fork the RosettaMPNN repo under your own Github user space. You can then develop your additions in your own space. Once you're ready to contribute it back, open a PR agaist the main RosettaMPNN repo.
 
 ### Support & Help
-You can find more detailed documentation on the[documentation site](https://woodsh17.github.io/RosettaMPNN/)
+You can find more detailed documentation on the [documentation site](https://woodsh17.github.io/RosettaMPNN/)
 
 For problems running RosettaMPNN please submit a github issue or submit your question [here](https://rosettacommons.org/contact/). 
+
+### License 
