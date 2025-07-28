@@ -3,8 +3,12 @@ import os
 
 from Bio.PDB import PDBParser
 
-sys.path.append("/Users/woodsh/RosettaMPNN/RosettaMPNN")
-from data_utils import (
+test_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(test_dir, "../../"))  # Adjust as needed
+
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+from RosettaMPNN.data_utils import (
     combine_pdbs,
     parse_PDB,
     parse_msd_residue_range,
