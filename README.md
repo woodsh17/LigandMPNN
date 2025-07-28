@@ -111,6 +111,10 @@ For more information on how to run RosettaMPNN and different options available s
 ### Developing 
 We welcome contributions to improve RosettaMPNN. We use a fork-and-PR system for contribution. To contribute to RosettaMPNN, please fork the RosettaMPNN repo under your own Github user space. You can then develop your additions in your own space. Once you're ready to contribute it back, open a PR agaist the main RosettaMPNN repo.
 
+**Testing**
+Testing is currently in development. Currently, unit test and integration test can be ran locally in the `test` directory with `pytest`.  
+This will be automated soon. 
+
 ### Support & Help
 You can find more detailed documentation on the [documentation site](https://woodsh17.github.io/RosettaMPNN/)
 
