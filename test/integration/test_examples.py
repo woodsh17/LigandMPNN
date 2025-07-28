@@ -2,14 +2,14 @@ import subprocess
 import sys
 import os
 
-sys.path.append("/Users/woodsh/LigandMPNN")
+sys.path.append("/Users/woodsh/RosettaMPNN")
 
 
 def test_run_default_main():
     cmd = [
         sys.executable,  # this runs the current Python interpreter
         "-m",
-        "LigandMPNN",
+        "RosettaMPNN",
         "--out_folder",
         "./test/integration/outputs/default_main",
         "--pdb_path",
@@ -19,7 +19,7 @@ def test_run_default_main():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -38,7 +38,7 @@ def test_run_default():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -59,7 +59,7 @@ def test_run_temperature():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -76,7 +76,7 @@ def test_run_seed():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -97,7 +97,7 @@ def test_run_verbose():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -118,7 +118,7 @@ def test_run_save_stats():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -141,7 +141,7 @@ def test_run_fixed_residues():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -164,7 +164,7 @@ def test_run_redesigned_residues():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -187,7 +187,7 @@ def test_run_number_of_batches():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -208,7 +208,7 @@ def test_run_bias_AA():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -229,7 +229,7 @@ def test_run_bias_AA_per_residue():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -250,7 +250,7 @@ def test_run_omit_AA():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -271,7 +271,7 @@ def test_run_omit_AA_per_residue():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -294,7 +294,7 @@ def test_run_symmetry():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -317,7 +317,7 @@ def test_run_homo_oligomer():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -338,7 +338,7 @@ def test_run_file_ending():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -361,7 +361,7 @@ def test_run_zero_indexed():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -382,7 +382,7 @@ def test_run_chains_to_design():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -403,7 +403,7 @@ def test_run_parse_these_chains_only():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -424,7 +424,7 @@ def test_run_ligand_mpnn():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -447,7 +447,7 @@ def test_run_checkpoint_ligand_mpnn():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -470,7 +470,7 @@ def test_run_ligand_mpnn_use_atom_context():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -495,7 +495,7 @@ def test_run_ligand_mpnn_use_side_chain_context():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -516,7 +516,7 @@ def test_run_soluble_mpnn():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -537,7 +537,7 @@ def test_run_global_label_membrane_mpnn():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -560,7 +560,7 @@ def test_run_global_label_membrane_mpnn():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -585,7 +585,7 @@ def test_run_per_residue_label_membrane_mpnn():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -606,7 +606,7 @@ def test_run_fasta_seq_separation():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -625,7 +625,7 @@ def test_run_pdb_path_multi():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -646,7 +646,7 @@ def test_run_fixed_residues_multi():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -667,7 +667,7 @@ def test_run_redesigned_residues_multi():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -688,7 +688,7 @@ def test_run_omit_AA_per_residue_multi():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -709,7 +709,7 @@ def test_run_bias_AA_per_residue_multi():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -730,7 +730,7 @@ def test_run_ligand_mpnn_cutoff_for_score():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -753,7 +753,7 @@ def test_run_insertion_code():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0
@@ -776,7 +776,7 @@ def test_run_parse_atoms_with_zero_occupancy():
     ]
 
     result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
+        cmd, cwd="/Users/woodsh/RosettaMPNN", capture_output=True, text=True
     )
     # Check for successful run and expected outputs
     assert result.returncode == 0

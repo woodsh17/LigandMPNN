@@ -7,15 +7,15 @@ import sys
 import numpy as np
 import torch
 
-from LigandMPNN.data_utils import (
+from RosettaMPNN.data_utils import (
     element_dict_rev,
     alphabet,
     restype_int_to_str,
     featurize,
     parse_PDB,
 )
-from LigandMPNN.model_utils import ProteinMPNN
-from LigandMPNN.cli import get_argparser
+from RosettaMPNN.model_utils import ProteinMPNN
+from RosettaMPNN.cli import get_argparser
 
 
 def main(args) -> None:
