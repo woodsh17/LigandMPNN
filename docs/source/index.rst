@@ -5,6 +5,8 @@
 
 RosettaMPNN documentation
 =========================
+**Welcome to the RosettaMPNN documentation!**
+To contribute to the documentation, please refere to the contributors guide, linked below. 
 
 .. include:: overview.md
    :parser: myst_parser.sphinx_
@@ -14,4 +16,7 @@ RosettaMPNN documentation
    :caption: Contents:
 
    readme_link.rst
+   license_link.rst
    docker.rst
+   installation.md
+   contributors_guide.md
