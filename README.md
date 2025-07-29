@@ -3,17 +3,19 @@
 ## Overview
 
 ### Description
-**RosettaMPNN** is a community-driven repository for protein sequence design tools based on Message Passing Neural Networks (MPNNs). Starting from the [**LigandMPNN**](https://www.biorxiv.org/content/10.1101/2023.12.22.573103v1.full) infrastructure, this repository combines many of the MPNN-based tools developed by Rosetta Commons, including [**ProteinMPNN**](https://www.science.org/doi/10.1126/science.add2187) and [**HyperMPNN**](https://www.biorxiv.org/content/biorxiv/early/2024/12/01/2024.11.26.625397.full.pdf) to serve as a **centralized home for multiple MPNN-based sequence design tools**. <mark>If you would like your MPNN-based tool incorporated into this repository, reach out to [Hope Woods](mailto:hope.woods@omsf.io), the Rosetta Commons Technical Product Lead.</mark>
+**RosettaMPNN** is a community-driven repository for protein sequence design tools based on Message Passing Neural Networks (MPNNs). Starting from the [**LigandMPNN**](https://www.biorxiv.org/content/10.1101/2023.12.22.573103v1.full) infrastructure, this repository combines many of the MPNN-based tools developed by Rosetta Commons, including [**ProteinMPNN**](https://www.science.org/doi/10.1126/science.add2187) and [**HyperMPNN**](https://www.biorxiv.org/content/biorxiv/early/2024/12/01/2024.11.26.625397.full.pdf) to serve as a **centralized home for multiple MPNN-based sequence design tools**. <mark>If you would like your MPNN-based tool incorporated into this repository, create a pull request or reach out to [Hope Woods](mailto:hope.woods@omsf.io), the Rosetta Commons Technical Product Lead.</mark>
 
-As one of the tools maintained by the Commons, the MPNN tools that compose RosettaMPPN have been refactored to create a single, unified interface with consistant usage patterns, infrastructure for unit tests, and integration tests.
-
-This includes integrating and maintaining various *MPNN model variants—such as ProteinMPNN, LigandMPNN, HyperMPNN, and others—under a unified interface, with added features, consistent usage patterns, and tested workflows. By integrating these tools under a unified Python API and command-line interface, we aim to streamline development, ensure long-term maintenance, and foster collaboration across the protein design community.
-
-RosettaMPNN is intended as an actively supported, evolving framework for MPNN-based protein design, allowing for flexible extensions to support new model variants, design protocols, and experimental use cases.
+As one of the tools maintained by the Commons, the MPNN tools that compose RosettaMPPN have been refactored to create a single, unified Pyhton API and command-line interface. This, along with the creation of unit and integration test infrastructure, will streamline development of RosettaMPNN, facilitate long-term maintenance, and promote collaboration between contributors.
 
 ### What are Message Passing Neural Networks (MPNNs)?
 
 MPNNs are a class of machine learning models that operate on graphs, making them ideal for modeling protein structures as networks of interacting atoms or residues. They have recently enabled state-of-the-art performance in protein design tasks.
+
+### What MPNN tools are currently included? 
+- **ProteinMPNN**: The original MPNN tool that can couple amino acid sequences in different chains and is symmetry aware. It can be used to design <span style='color:#F68A33'>monomers</span>, <span style='color:#F68A33'>cyclic oligomers</span>, <span style='color:#F68A33'>protein nanoparticles</span>, and <span style='color:#F68A33'>protein-protein interfaces</span>.
+- **LigandMPNN**: Extends the capabilities of ProteinMPNN to also be able to design protein sequences in the context of small molecules, nucleotides and metals. This allows for the design of <span style='color:#F68A33'>small molecule binding proteins</span>, <span style='color:#F68A33'>sensors</span>, and <span style='color:#F68A33'>enzymes</span>.
+- **HyperMPNN**: Adds a new model to construct <span style='color:#F68A33'>highly thermostable proteins</span>. These proteins are incredibly useful for the creation of vaccines, protein nanoparticles for drug delivery, and industrial biocatalysts.
+- **Multistate Design**: Enables sequence design for multiple protein conformations at once, improving protein flexiblity and resulting in more realistic protein structures.
 
 ### Key Publications
 
