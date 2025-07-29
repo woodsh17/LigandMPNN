@@ -5,7 +5,7 @@
 ### Description
 **RosettaMPNN** is a community-driven repository for protein sequence design tools based on Message Passing Neural Networks (MPNNs). Starting from the [**LigandMPNN**](https://www.biorxiv.org/content/10.1101/2023.12.22.573103v1.full) infrastructure, this repository combines many of the MPNN-based tools developed by Rosetta Commons, including [**ProteinMPNN**](https://www.science.org/doi/10.1126/science.add2187) and [**HyperMPNN**](https://www.biorxiv.org/content/biorxiv/early/2024/12/01/2024.11.26.625397.full.pdf) to serve as a **centralized home for multiple MPNN-based sequence design tools**. <mark>If you would like your MPNN-based tool incorporated into this repository, reach out to [Hope Woods](mailto:hope.woods@omsf.io), the Rosetta Commons Technical Product Lead.</mark>
 
-As one of the tools maintained by the Commons, the MPNN tools that compose RosettaMPPN have been refactored to create a single, unified interface with consistant usage patterns, infrastructure for code tests, and tests
+As one of the tools maintained by the Commons, the MPNN tools that compose RosettaMPPN have been refactored to create a single, unified interface with consistant usage patterns, infrastructure for unit tests, and integration tests.
 
 This includes integrating and maintaining various *MPNN model variants—such as ProteinMPNN, LigandMPNN, HyperMPNN, and others—under a unified interface, with added features, consistent usage patterns, and tested workflows. By integrating these tools under a unified Python API and command-line interface, we aim to streamline development, ensure long-term maintenance, and foster collaboration across the protein design community.
 
