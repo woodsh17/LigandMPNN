@@ -31,17 +31,22 @@ The following publications describe the underlying methods and models integrated
 
 - [Overview](#overview)
   - [Description](#description)
+  - [What are Message Passing Neural Networks (MPNNs)?](#what-are-message-passing-neural-networks-mpnns)
   - [Key Publications](#key-publications)
+- [Features](#features)
 - [Getting Started](#getting-started)
   - [Installation Guide](#installation-guide)
   - [Docker image](#docker-image)
-  - [Usage](#usage)
-    - [Basic Use Case](#how-to-run-basic-use-case)
-    - [Multi-State Design](#multi-state-design)
+- [Examples](#examples)
+  - Basic Use Case
+  - Multi-State Design
+  - Using HyperMPNN Weights
 - [Developing](#developing)
+  - [Contributing](#contributing)
   - [Testing](#testing)
 - [Support & Help](#support--help)
 - [License](#license)
+- [Citing RosettaMPNN](#citing-rosettampnn)
 
 ---
 
@@ -118,27 +123,49 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 ### Docker image
 _Docker image coming soon_
 
-### Usage
+## Examples
 
-**How to Run Basic Use Case:**  
+<details>
+<summary><strong>Basic Use Case</strong></summary>
+
 For this example we will use 1BC8.pdb from the example inputs.
+**Flags explained:**
+- `--out_folder`: Output directory for results
+- `--pdb_path`: Input structure in PDB format
+- `--checkpoint_protein_mpnn`: Path to model weights, necessary if you are not running inside RosettaMPNN
+
+**Example Command Line**
 ```
 python -m RosettaMPNN \
 --out_folder ./out/ \
 --pdb_path ~/RosettaMPNN/inputs/1BC8.pdb \
 --checkpoint_protein_mpnn ~/RosettaMPNN/model_params/ proteinmpnn_v_48_020.pt 
 ```
-If this runs successfully, in the `out_folder` you specified you should have three directories created:
-* `seqs` with the designed sequence in the fasta file `1BC8.fa`
-* `backbones` with the output structure containing the predicted sequence in pdb file: `1BC8.pdb`
-* `packed` that should be empty since we didn't specify for side-chains to be packed
+**Expected outputs:**
+- `seqs/`: Designed sequence as `1BC8.fa`
+- `backbones/`: Output structure with predicted sequence as `1BC8.pdb`
+- `packed/`: (empty unless side-chain packing is specified)
 
-**Multi-State Design:** 
-The multi-state implementation for RosettaMPNN has not been scientifically tested yet so use with caution! This was originally implemented by the Kuhlman lab into ProteinMPNN (https://github.com/Kuhlman-Lab/proteinmpnn)
+</details>
+
+<details>
+<summary><strong>Multi-State Design</strong></summary>
+
+> ⚠️ **Experimental Feature**: The multi-state implementation is not yet scientifically validated. Use with caution.
+
+Multi-state design allows you to design sequences compatible with multiple structures or states.  
+Originally implemented by the Kuhlman lab ([GitHub](https://github.com/Kuhlman-Lab/proteinmpnn)).
+
+**Flags explained:**
+- `--multi_state_pdb_path`: Path to a json file listing the PDBS to be included 
+- `--multi_state_constraints`: Semicolon-separated list of multi-state design constraints, commas separate individual residue sets within a constraint
+
+**Example Command Line**
 ```
 #copy PDB files to working directory
 cp PATH/TO/RosettaMPNN/inputs/4GYT_dimer.pdb .
 cp PATH/TO/RosettaMPNN/inputs/4GYT_monomer.pdb .
+
 #create json file that points to input pdbs
 cat <<EOF >> msd_pdbs.json
 {
@@ -154,10 +181,18 @@ python -m RosettaMPNN \
 --multi_state_constraints 4GYT_dimer:A7-A183:0.5,4GYT_dimer:B7-B183:0.5,4GYT_monomer:A7-A183:1 \
 --checkpoint_protein_mpnn ~/RosettaMPNN/model_params/proteinmpnn_v_48_020.pt 
 ```
-If this runs successfully, you will have the same directories as before, with an additional `msd` directory where a pdb file (`msd.pdb`)that combines all pdb files listed in the input json file are combined into one pdb file and separated in space. There will be additional fasta files and PDB files in `seqs` and `backbones` directories for the different structures included in your input. 
+Same as basic use case, plus:
+- `msd/`: Combined multi-state structure as `msd.pdb`
+- Extra FASTA/PDB files for each input structure
 
-**Using HyperMPNN Weights:** 
-The retrained HyperMPNN weights were downloaded when you ran `get_model_params.sh`. You can use these weights with the `protein_mpnn` model option. This is not compatible with the `ligand_mpnn` model. 
+</details>
+
+<details>
+<summary><strong>Using HyperMPNN Weights</strong></summary>
+
+The retrained HyperMPNN weights were downloaded when you ran `get_model_params.sh`. You can use these weights with the `protein_mpnn` model option. This is **not compatible** with the `ligand_mpnn` model. 
+
+**Example Command Line**
 ```
 python -m RosettaMPNN \
 --out_folder ./out_hyper/ \
@@ -165,8 +200,9 @@ python -m RosettaMPNN \
 --model_type protein_mpnn \
 --checkpoint_protein_mpnn ~/RosettaMPNN/model_params/hypermpnn_v48_020_epoch300.pt 
 ```
+</details>
 
-For more information on how to run RosettaMPNN and different options available see the [documentation]((https://woodsh17.github.io/RosettaMPNN/)). 
+**For more information on how to run RosettaMPNN and different options available see the [documentation](https://woodsh17.github.io/RosettaMPNN/).** 
 
 ---
 ## Developing 
