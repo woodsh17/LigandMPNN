@@ -2,7 +2,8 @@ import subprocess
 import sys
 import os
 
-sys.path.append("/Users/woodsh/LigandMPNN")
+test_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(test_dir, "../.."))
 
 
 def test_run_symm():
@@ -10,25 +11,23 @@ def test_run_symm():
         sys.executable,  # this runs the current Python interpreter
         "run.py",
         "--out_folder",
-        "./test/integration/outputs/",
+        "./test/integration/outputs/symm",
         "--pdb_path",
-        "./test/integration/inputs/1BC8.pdb",
+        "./inputs/1BC8.pdb",
         "--symmetry_residues",
         "C1,C2,C3|C4,C5|C6,C7",
         "--symmetry_weights",
         "0.33,0.33,0.33|0.5,0.5|0.5,0.5",
     ]
 
-    result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
-    )
+    result = subprocess.run(cmd, cwd=str(project_root), capture_output=True, text=True)
     print("STDOUT:", result.stdout)
     print("STDERR:", result.stderr)
     # Check for successful run and expected outputs
     assert result.returncode == 0
 
     # Parse second sequence from FASTA file
-    fasta_path = "./outputs/seqs/1BC8.fa"
+    fasta_path = os.path.join(test_dir, "outputs", "symm", "seqs", "1BC8.fa")
     assert os.path.exists(fasta_path), f"FASTA file not found: {fasta_path}"
 
     with open(fasta_path, "r") as f:

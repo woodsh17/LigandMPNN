@@ -2,30 +2,31 @@ import subprocess
 import sys
 import os
 
-sys.path.append("/Users/woodsh/LigandMPNN")
+test_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(test_dir, "../.."))
 
 
 def test_run_msd_single_constraint():
     cmd = [
         sys.executable,  # this runs the current Python interpreter
         "-m",
-        "LigandMPNN",
+        "RosettaMPNN",
         "--out_folder",
         "./test/integration/outputs/single_constraint",
         "--multi_state_pdb_path",
-        "./test/integration/msd_pdbs.json",
+        "./inputs/msd_pdbs.json",
         "--multi_state_constraints",
         "4GYT_dimer:A7-A183:0.5,4GYT_dimer:B7-B183:0.5,4GYT_monomer:A7-A183:1",
     ]
 
-    result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
-    )
+    result = subprocess.run(cmd, cwd=str(project_root), capture_output=True, text=True)
     # Check for successful run and expected outputs
     assert result.returncode == 0
 
     # Check if predicted sequences for the three states are identical
-    fasta_path = "./outputs/single_constraint/seqs/msd.fa"
+    fasta_path = os.path.join(
+        test_dir, "outputs", "single_constraint", "seqs", "msd.fa"
+    )
     assert os.path.exists(fasta_path), f"FASTA file not found: {fasta_path}"
 
     with open(fasta_path, "r") as f:
@@ -53,22 +54,20 @@ def test_run_msd_mulitple_constraint():
     cmd = [
         sys.executable,  # this runs the current Python interpreter
         "-m",
-        "LigandMPNN",
+        "RosettaMPNN",
         "--out_folder",
         "./test/integration/outputs/msd_multiple_constraint",
         "--multi_state_pdb_path",
-        "./test/integration/msd_multi_constraint_pdbs.json",
+        "./inputs/msd_multi_constraint_pdbs.json",
         "--multi_state_constraints",
         "1a0o:A1-A128:1,1a0o_chainA_monomer:A1-A128:1;1a0o:B1-B70:1,1a0o_chainB_monomer:B1-B70:-1",
     ]
 
-    result = subprocess.run(
-        cmd, cwd="/Users/woodsh/LigandMPNN", capture_output=True, text=True
-    )
+    result = subprocess.run(cmd, cwd=str(project_root), capture_output=True, text=True)
     # Check for successful run and expected outputs
     assert result.returncode == 0
 
-    base = "./outputs/msd_multiple_constraint/seqs"
+    base = os.path.join(test_dir, "outputs", "msd_multiple_constraint", "seqs")
 
     def get_seq(path):
         with open(path, "r") as f:
