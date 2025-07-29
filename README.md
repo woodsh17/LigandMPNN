@@ -14,24 +14,7 @@ RosettaMPNN contains code for running protein sequence design based on [ProteinM
 [HyperMPNN](https://github.com/meilerlab/HyperMPNN): [https://doi.org/10.1101/2024.11.26.625397](https://doi.org/10.1101/2024.11.26.625397)
 
 ---
-## Table of Contents
-
-- [Overview](#overview)
-  - [Description](#description)
-  - [Key Publications](#key-publications)
-- [Getting Started](#getting-started)
-  - [Installation Guide](#installation-guide)
-    - [Prerequisites](#prerequisites)
-    - [Installation Methods](#installation-methods)
-    - [Post-Installation Setup](#post-installation-setup)
-  - [Usage](#usage)
-    - [Input Files](#input-files)
-    - [Output Files](#output-files)
-    - [How to Run](#how-to-run)
-    - [Description](#description)
-- [Developing](#developing)
-- [Support & Help](#support--help)
-- [Acknowledgements](#acknowledgements)
+[TOC]
 
 ## Getting Started
 ### Installation Guide
