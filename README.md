@@ -93,8 +93,12 @@ conda activate rosettampnn
 <summary><strong>Option B: Using <code>uv</code> and venv</strong></summary>
 
 ```
-python3.11 -m venv .venv
+#create virtual environment with python3.11
+uv venv --python=python3.11
 source .venv/bin/activate
+#if cuda is available
+uv pip install -e .[cuda]
+#if cuda is not available
 uv pip install -e .
 ```
 (Optional but recommended) Add RosettaMPNN to your PYTHONPATH:
