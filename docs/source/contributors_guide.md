@@ -16,14 +16,14 @@ The files with `.md` extensions are written in [MarkDown](https://www.markdowngu
 Any new files should go into the `source` directory, or any relevant subdirectory. Make sure this file gets added to `docs/source/index.rst` so that it shows up in the table of contents and so that Sphinx knows to generate a static HTML page for it. 
 
 To see your documentation updates before you create a pull request: 
-1. *Optional* It is recommended to create a different conda environment for the docs, in case any of the dependencies interfere with running LigandMPNN:
+1. *(Optional)* It is recommended to create a different conda environment for the docs, in case any of the dependencies interfere with running LigandMPNN:
     ```
     conda create -n ligandmpnn_docs_env
     ```
 1. Make sure you have:
     - [Sphinx](https://www.sphinx-doc.org/en/master/usage/installation.html)
     - [MyST](https://myst-parser.readthedocs.io/en/latest/intro.html)
-    - the furo template (`pip install furo`)
+    - the [furo](https://pradyunsg.me/furo/) template (`pip install furo`)
 
 1. `cd RosettaMPNN/docs`
 1. `make html`
