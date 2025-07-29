@@ -31,17 +31,22 @@ The following publications describe the underlying methods and models integrated
 
 - [Overview](#overview)
   - [Description](#description)
+  - [What are Message Passing Neural Networks (MPNNs)?](#what-are-message-passing-neural-networks-mpnns)
   - [Key Publications](#key-publications)
+- [Features](#features)
 - [Getting Started](#getting-started)
   - [Installation Guide](#installation-guide)
   - [Docker image](#docker-image)
-  - [Usage](#usage)
-    - [Basic Use Case](#how-to-run-basic-use-case)
-    - [Multi-State Design](#multi-state-design)
+- [Usage](#usage)
+  - [Basic Use Case](#basic-use-case)
+  - [Multi-State Design](#multi-state-design)
+  - [Using HyperMPNN Weights](#using-hypermpnn-weights)
 - [Developing](#developing)
+  - [Contributing](#contributing)
   - [Testing](#testing)
 - [Support & Help](#support--help)
 - [License](#license)
+- [Citing RosettaMPNN](#citing-rosettampnn)
 
 ---
 
