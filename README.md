@@ -37,10 +37,10 @@ The following publications describe the underlying methods and models integrated
 - [Getting Started](#getting-started)
   - [Installation Guide](#installation-guide)
   - [Docker image](#docker-image)
-- [Usage](#usage)
-  - [Basic Use Case](#basic-use-case)
-  - [Multi-State Design](#multi-state-design)
-  - [Using HyperMPNN Weights](#using-hypermpnn-weights)
+- [Examples](#examples)
+  - Basic Use Case
+  - Multi-State Design
+  - Using HyperMPNN Weights
 - [Developing](#developing)
   - [Contributing](#contributing)
   - [Testing](#testing)
@@ -123,7 +123,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 ### Docker image
 _Docker image coming soon_
 
-## Usage
+## Examples
 
 <details>
 <summary><strong>Basic Use Case</strong></summary>
