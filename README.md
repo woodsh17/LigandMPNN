@@ -3,13 +3,10 @@
 ## Overview
 
 ### Description
-**RosettaMPNN** is a community-driven repository for protein sequence design tools based on Message Passing Neural Networks (MPNNs). Starting from the [**LigandMPNN**](https://www.biorxiv.org/content/10.1101/2023.12.22.573103v1.full) infrastructure, this repository combines many of the MPNN-based tools developed by Rosetta Commons, including [**ProteinMPNN**](https://www.science.org/doi/10.1126/science.add2187) and [**HyperMPNN**](https://www.biorxiv.org/content/biorxiv/early/2024/12/01/2024.11.26.625397.full.pdf) to serve as a **centralized home for multiple MPNN-based sequence design tools**. <mark>If you would like your MPNN-based tool incorporated into this repository, create a pull request or reach out to [Hope Woods](mailto:hope.woods@omsf.io), the Rosetta Commons Technical Product Lead.</mark>
+**RosettaMPNN** is a community-driven repository for protein sequence design tools based on Message Passing Neural Networks (MPNNs). Starting from the [**LigandMPNN**](https://www.biorxiv.org/content/10.1101/2023.12.22.573103v1.full) infrastructure, this repository combines many of the MPNN-based tools developed by Rosetta Commons, including [**ProteinMPNN**](https://www.science.org/doi/10.1126/science.add2187) and [**HyperMPNN**](https://www.biorxiv.org/content/biorxiv/early/2024/12/01/2024.11.26.625397.full.pdf) to serve as a **centralized home for MPNN-based sequence design tools**. <mark>If you would like your MPNN-based tool incorporated into this repository, create a pull request or reach out to [Hope Woods](mailto:hope.woods@omsf.io), the Rosetta Commons Technical Product Lead.</mark>
 
-As one of the tools maintained by the Commons, the MPNN tools that compose RosettaMPPN have been refactored to create a single, unified Pyhton API and command-line interface. This, along with the creation of unit and integration test infrastructure, will streamline development of RosettaMPNN, facilitate long-term maintenance, and promote collaboration between contributors.
+As one of the tools maintained by the Commons, the MPNN tools that compose RosettaMPPN have been refactored to create a single, unified Python API and command-line interface. This, along with the creation of unit and integration test infrastructure, will streamline development of RosettaMPNN, facilitate long-term maintenance, and promote collaboration between contributors.
 
-### What are Message Passing Neural Networks (MPNNs)?
-
-MPNNs are a class of machine learning models that operate on graphs, making them ideal for modeling protein structures as networks of interacting atoms or residues. They have recently enabled state-of-the-art performance in protein design tasks.
 
 ### What MPNN tools are currently included? 
 - **ProteinMPNN**: The original MPNN tool that can couple amino acid sequences in different chains and is symmetry aware. It can be used to design <span style='color:#F68A33'>monomers</span>, <span style='color:#F68A33'>cyclic oligomers</span>, <span style='color:#F68A33'>protein nanoparticles</span>, and <span style='color:#F68A33'>protein-protein interfaces</span>.
@@ -33,7 +30,6 @@ The following publications describe the underlying methods and models integrated
 
 - [Overview](#overview)
   - [Description](#description)
-  - [What are Message Passing Neural Networks (MPNNs)?](#what-are-message-passing-neural-networks-mpnns)
   - [Key Publications](#key-publications)
 - [Features](#features)
 - [Getting Started](#getting-started)
