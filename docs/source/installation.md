@@ -9,9 +9,10 @@ The model weights and repository will take about 1G of space on your system.
 ## Installation Guide
 The recommended way to install RosettaMPNN is via [uv](https://docs.astral.sh/uv/), however installation via a [miniforge](https://github.com/conda-forge/miniforge) environment is available as well. See the dropdowns below for step-by-step instructions. 
 
-1. Clone the repository:
+1. Clone and enter the repository:
     ```
     git clone git@github.com:woodsh17/RosettaMPNN.git
+    cd RosettaMPNN
     ```
 1. Download the model weights - including the weights for HyperMPNN:
     ```
@@ -22,14 +23,20 @@ The recommended way to install RosettaMPNN is via [uv](https://docs.astral.sh/uv
 <details>
 <summary><strong>Installation using <code>uv</code> </strong></summary>
 
-3. If you do not have <code>uv</code> installed, run:
+3. If you do not have `uv` installed, run:
     ```
     curl -LsSf https://astral.sh/uv/install.sh | sh
     ```
+    1. (Optional) Create an alias, if necessary, to call `uv` without giving the full path:
+        When `uv` is installed on your system it will specify the path that it is installed to. Use that path to make the alias, for example: 
+        ```
+        alias uv=/path/to/installation/of/uv
+        ```
+        You can add this path to your `bash.rc` or `.zshrc` to have the alias automatically set up when you use your terminal. 
 1. Create a virutal environment using Python 3.11 and activate it
     ```
-    uv venv --python=python3.11
-    source .venv/bin/activate
+    uv venv rosettampnn_venv --python 3.11
+    source rosettampnn_venv/bin/activate
     ```
     **You will need to activate this environment whenever you run RosettaMPNN**
 1. Install the dependencies: 
