@@ -1,0 +1,36 @@
+name: Run Tests
+
+on: 
+    push:
+        branches: ["main", "github-ci"]
+    pull_request:
+        branches: [ "main", "github-ci" ]
+
+jobs:
+  test:
+    #runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh 
+      - name: Install dependencies
+        run: |
+          uv venv .venv
+          source .venv/bin/activate
+          uv pip install --no-cache-dir -q .[cuda] \
+            pytest
+      - name: Download weights
+        run: |
+          chmod +x get_model_params.sh
+          get_model_params.sh model_params
+
+      - name: Run tests
+        run: |
+          source .venv/bin/activate 
+          pytest test/
