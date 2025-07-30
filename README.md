@@ -3,18 +3,22 @@
 ## Overview
 
 ### Description
-**RosettaMPNN** is a community-driven repository for protein sequence design tools based on Message Passing Neural Networks (MPNNs). Starting from the [**LigandMPNN**](https://www.biorxiv.org/content/10.1101/2023.12.22.573103v1.full) infrastructure, this repository combines many of the MPNN-based tools developed by Rosetta Commons, including [**ProteinMPNN**](https://www.science.org/doi/10.1126/science.add2187) and [**HyperMPNN**](https://www.biorxiv.org/content/biorxiv/early/2024/12/01/2024.11.26.625397.full.pdf) to serve as a **centralized home for multiple MPNN-based sequence design tools**. <mark>If you would like your MPNN-based tool incorporated into this repository, create a pull request or reach out to [Hope Woods](mailto:hope.woods@omsf.io), the Rosetta Commons Technical Product Lead.</mark>
+**RosettaMPNN** is a community-driven repository for protein sequence design tools based on Message Passing Neural Networks (MPNNs). It is released as an open-source tool under an MIT license, see the license [here](LICENSE) for more information. 
+
+Starting from the [**LigandMPNN**](https://www.biorxiv.org/content/10.1101/2023.12.22.573103v1.full) infrastructure, this repository combines many of the MPNN-based tools developed by Rosetta Commons, including [**ProteinMPNN**](https://www.science.org/doi/10.1126/science.add2187) and [**HyperMPNN**](https://www.biorxiv.org/content/biorxiv/early/2024/12/01/2024.11.26.625397.full.pdf) to serve as a **centralized home for multiple MPNN-based sequence design tools**. <mark>If you would like your MPNN-based tool incorporated into this repository, create a pull request or reach out to [Hope Woods](mailto:hope.woods@omsf.io), the Rosetta Commons Technical Product Lead.</mark>
 
 As one of the tools maintained by the Commons, the MPNN tools that compose RosettaMPPN have been refactored to create a single, unified Pyhton API and command-line interface. This, along with the creation of unit and integration test infrastructure, will streamline development of RosettaMPNN, facilitate long-term maintenance, and promote collaboration between contributors.
+
+This README is a great place to start, but for more information about what RosettaMPNN can do and how to contribute, see the [documentation](https://woodsh17.github.io/RosettaMPNN/). 
 
 ### What are Message Passing Neural Networks (MPNNs)?
 
 MPNNs are a class of machine learning models that operate on graphs, making them ideal for modeling protein structures as networks of interacting atoms or residues. They have recently enabled state-of-the-art performance in protein design tasks.
 
 ### What MPNN tools are currently included? 
-- **ProteinMPNN**: The original MPNN tool that can couple amino acid sequences in different chains and is symmetry aware. It can be used to design <span style='color:#F68A33'>monomers</span>, <span style='color:#F68A33'>cyclic oligomers</span>, <span style='color:#F68A33'>protein nanoparticles</span>, and <span style='color:#F68A33'>protein-protein interfaces</span>.
-- **LigandMPNN**: Extends the capabilities of ProteinMPNN to also be able to design protein sequences in the context of small molecules, nucleotides and metals. This allows for the design of <span style='color:#F68A33'>small molecule binding proteins</span>, <span style='color:#F68A33'>sensors</span>, and <span style='color:#F68A33'>enzymes</span>.
-- **HyperMPNN**: Adds a new model to construct <span style='color:#F68A33'>highly thermostable proteins</span>. These proteins are incredibly useful for the creation of vaccines, protein nanoparticles for drug delivery, and industrial biocatalysts.
+- [**ProteinMPNN**](https://www.science.org/doi/10.1126/science.add2187): The original MPNN tool that can couple amino acid sequences in different chains and is symmetry aware. It can be used to design <span style='color:#F68A33'>monomers</span>, <span style='color:#F68A33'>cyclic oligomers</span>, <span style='color:#F68A33'>protein nanoparticles</span>, and <span style='color:#F68A33'>protein-protein interfaces</span>.
+- [**LigandMPNN**](https://www.biorxiv.org/content/10.1101/2023.12.22.573103v1.full): Extends the capabilities of ProteinMPNN to also be able to design protein sequences in the context of small molecules, nucleotides and metals. This allows for the design of <span style='color:#F68A33'>small molecule binding proteins</span>, <span style='color:#F68A33'>sensors</span>, and <span style='color:#F68A33'>enzymes</span>.
+- [**HyperMPNN**](https://www.biorxiv.org/content/biorxiv/early/2024/12/01/2024.11.26.625397.full.pdf): Adds a new model to construct <span style='color:#F68A33'>highly thermostable proteins</span>. These proteins are incredibly useful for the creation of vaccines, protein nanoparticles for drug delivery, and industrial biocatalysts.
 - **Multistate Design**: Enables sequence design for multiple protein conformations at once, improving protein flexiblity and resulting in more realistic protein structures.
 
 ### Key Publications
@@ -40,9 +44,9 @@ The following publications describe the underlying methods and models integrated
   - [Installation Guide](#installation-guide)
   - [Docker image](#docker-image)
 - [Examples](#examples)
-  - Basic Use Case
-  - Multi-State Design
-  - Using HyperMPNN Weights
+  - [Basic Use Case](#basic_use_case)
+  - [Multi-State Design](#multi_state_design)
+  - [Using HyperMPNN Weights](#hypermpnn_weights)
 - [Developing](#developing)
   - [Contributing](#contributing)
   - [Testing](#testing)
@@ -127,6 +131,7 @@ _Docker image coming soon_
 
 ## Examples
 
+<a id='basic_use_case'></a>
 <details>
 <summary><strong>Basic Use Case</strong></summary>
 
@@ -150,6 +155,7 @@ python -m RosettaMPNN \
 
 </details>
 
+<a id='multi_state_design'></a>
 <details>
 <summary><strong>Multi-State Design</strong></summary>
 
@@ -189,6 +195,7 @@ Same as basic use case, plus:
 
 </details>
 
+<a id='hypermpnn_weights'></a>
 <details>
 <summary><strong>Using HyperMPNN Weights</strong></summary>
 
@@ -229,11 +236,6 @@ You can find more detailed documentation on the [documentation site](https://woo
 - Full documentation: [https://woodsh17.github.io/RosettaMPNN/](https://woodsh17.github.io/RosettaMPNN/)
 - Open an issue for bugs or feature requests: [GitHub Issues](https://github.com/woodsh17/RosettaMPNN/issues)
 - General questions: [RosettaCommons contact form](https://rosettacommons.org/contact/)
-
----
-
-## License 
-RosettaMPNN is released under the [MIT License](LICENSE).
 
 ---
 

@@ -1,42 +1,75 @@
-# Installation Guide
-
+# Installation
+<!--
 If you're using a system with an AMD architecture, we recommend using the available [Docker image](docker.rst).
+-->
 
 ## System Requirements and Prerequesites
+The model weights and repository will take about 1G of space on your system.
 
-An installation of [Conda or Miniconda](https://www.anaconda.com/download/success) is required to follow this installation guide. 
+## Installation Guide
+The recommended way to install RosettaMPNN is via [uv](https://docs.astral.sh/uv/), however installation via a [miniforge](https://github.com/conda-forge/miniforge) environment is available as well. See the dropdowns below for step-by-step instructions. 
 
-The repository and all of the model parameter files will take about 1G of storage space.
-
-For a full list of software and library dependencies:
-- If your system has NVIDIA GPUs equipped with CUDA libraries see `requirements.txt`
-- For all other systems see `requirements_no_nvidia_cuda.txt` 
-
-## Installation instructions
-
-1. Clone the repository: <mark>THIS WILL NEED TO BE UPDATED</mark>
+1. Clone the repository:
     ```
     git clone git@github.com:woodsh17/RosettaMPNN.git
     ```
-1. Download the model weights and place them in a direcotry called `model_params`. this will also download the weights for HyperMPNN
-   ````
-   cd RosettaMPNN
-   bash get_model_params.sh model_params
-1. Create a conda environment and activate it
+1. Download the model weights - including the weights for HyperMPNN:
+    ```
+    bash get_model_params.sh model_params
+    ```
+    *For more information on model weights see the documentation page on [model weights](model_weights_ref.md)*
+
+<details>
+<summary><strong>Installation using <code>uv</code> </strong></summary>
+
+3. If you do not have <code>uv</code> installed, run:
+    ```
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
+1. Create a virutal environment using Python 3.11 and activate it
+    ```
+    uv venv --python=python3.11
+    source .venv/bin/activate
+    ```
+    **You will need to activate this environment whenever you run RosettaMPNN**
+1. Install the dependencies: 
+    - If CUDA is available: 
+        ```
+        uv pip install -e .[cuda]
+        ```
+    - If CUDA is not available:
+        ```
+        uv pip install -e .
+        ```
+
+1. *(Optional but recommended)* Add RosettaMPNN to your PYTHONPATH:
+    ```
+    export PYTHONPATH=/path/to/RosettaMPNN:$PYTHONPATH
+    ```
+
+</details>
+
+<details>
+<summary><strong>Iinstallation using miniforge</strong></summary>
+
+3. Create a conda environment and activate it:
     ```
     conda create -n rosettampnn_env python=3.11
     conda activate rosettampnn_env
     ```
-    **Make sure to activate this environment whenever you want to run RosettaMPNN**
-1. Install all of the dependencies of ProteinMPNN: 
-    - If your system has NVIDIA GPUs equipped with CUDA libraries:
+    **You will need to activate this environment whenever you run RosettaMPNN**
+1. Install the dependencies:
+    - If CUDA is available:
         ```
         pip install -r requirements.txt
+        pip install -e .
         ```
-    - For all other systems: 
+    - If CUDA is not availiable: 
         ```
-        pip install -r requirements_no_nvidia_cuda.txt
+        pip install -r requirementts_no_nvidia_cuda.txt
         ```
-1. *(Optional)* To make it easier to call RosettaMPNN, it is recommended to add the repository location to your PYTHONPATH:
-   ```
-   export PYTHONPATH=$PYTHONPATH:/path/to/RosettaMPNN
+1. *(Optional but recommended)* Add RosettaMPNN to your PYTHONPATH:
+    ```
+    export PYTHONPATH=/PATH/TO/RosettaMPNN:$PYTHONPATH
+    ```
+</details>
