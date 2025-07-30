@@ -3,22 +3,16 @@
 ## Overview
 
 ### Description
-**RosettaMPNN** is a community-driven repository for protein sequence design tools based on Message Passing Neural Networks (MPNNs). It is released as an open-source tool under an MIT license, see the license [here](LICENSE) for more information. 
+**RosettaMPNN** is a community-driven repository for protein sequence design tools based on Message Passing Neural Networks (MPNNs). Starting from the [**LigandMPNN**](https://www.biorxiv.org/content/10.1101/2023.12.22.573103v1.full) infrastructure, this repository combines many of the MPNN-based tools developed by Rosetta Commons, including [**ProteinMPNN**](https://www.science.org/doi/10.1126/science.add2187) and [**HyperMPNN**](https://www.biorxiv.org/content/biorxiv/early/2024/12/01/2024.11.26.625397.full.pdf) to serve as a **centralized home for MPNN-based sequence design tools**. <mark>If you would like your MPNN-based tool incorporated into this repository, create a pull request or reach out to [Hope Woods](mailto:hope.woods@omsf.io), the Rosetta Commons Technical Product Lead.</mark>
 
-Starting from the [**LigandMPNN**](https://www.biorxiv.org/content/10.1101/2023.12.22.573103v1.full) infrastructure, this repository combines many of the MPNN-based tools developed by Rosetta Commons, including [**ProteinMPNN**](https://www.science.org/doi/10.1126/science.add2187) and [**HyperMPNN**](https://www.biorxiv.org/content/biorxiv/early/2024/12/01/2024.11.26.625397.full.pdf) to serve as a **centralized home for multiple MPNN-based sequence design tools**. <mark>If you would like your MPNN-based tool incorporated into this repository, create a pull request or reach out to [Hope Woods](mailto:hope.woods@omsf.io), the Rosetta Commons Technical Product Lead.</mark>
-
-As one of the tools maintained by the Commons, the MPNN tools that compose RosettaMPPN have been refactored to create a single, unified Pyhton API and command-line interface. This, along with the creation of unit and integration test infrastructure, will streamline development of RosettaMPNN, facilitate long-term maintenance, and promote collaboration between contributors.
+As one of the tools maintained by Rosetta Commons, the MPNN tools that compose RosettaMPPN have been refactored to create a single, unified Python API and command-line interface. This, along with the creation of unit and integration test infrastructure, will streamline development of RosettaMPNN, facilitate long-term maintenance, and promote collaboration between contributors.
 
 This README is a great place to start, but for more information about what RosettaMPNN can do and how to contribute, see the [documentation](https://woodsh17.github.io/RosettaMPNN/). 
 
-### What are Message Passing Neural Networks (MPNNs)?
-
-MPNNs are a class of machine learning models that operate on graphs, making them ideal for modeling protein structures as networks of interacting atoms or residues. They have recently enabled state-of-the-art performance in protein design tasks.
-
 ### What MPNN tools are currently included? 
-- [**ProteinMPNN**](https://www.science.org/doi/10.1126/science.add2187): The original MPNN tool that can couple amino acid sequences in different chains and is symmetry aware. It can be used to design <span style='color:#F68A33'>monomers</span>, <span style='color:#F68A33'>cyclic oligomers</span>, <span style='color:#F68A33'>protein nanoparticles</span>, and <span style='color:#F68A33'>protein-protein interfaces</span>.
-- [**LigandMPNN**](https://www.biorxiv.org/content/10.1101/2023.12.22.573103v1.full): Extends the capabilities of ProteinMPNN to also be able to design protein sequences in the context of small molecules, nucleotides and metals. This allows for the design of <span style='color:#F68A33'>small molecule binding proteins</span>, <span style='color:#F68A33'>sensors</span>, and <span style='color:#F68A33'>enzymes</span>.
-- [**HyperMPNN**](https://www.biorxiv.org/content/biorxiv/early/2024/12/01/2024.11.26.625397.full.pdf): Adds a new model to construct <span style='color:#F68A33'>highly thermostable proteins</span>. These proteins are incredibly useful for the creation of vaccines, protein nanoparticles for drug delivery, and industrial biocatalysts.
+- **ProteinMPNN**: The original MPNN tool that can couple amino acid sequences in different chains and is symmetry aware. It can be used to design <span style='color:#F68A33'>monomers</span>, <span style='color:#F68A33'>cyclic oligomers</span>, <span style='color:#F68A33'>protein nanoparticles</span>, and <span style='color:#F68A33'>protein-protein interfaces</span>.
+- **LigandMPNN**: Extends the capabilities of ProteinMPNN to also be able to design protein sequences in the context of small molecules, nucleotides and metals. This allows for the design of <span style='color:#F68A33'>small molecule binding proteins</span>, <span style='color:#F68A33'>sensors</span>, and <span style='color:#F68A33'>enzymes</span>.
+- **HyperMPNN**: Adds a new model to construct <span style='color:#F68A33'>highly thermostable proteins</span>. These proteins are incredibly useful for the creation of vaccines, protein nanoparticles for drug delivery, and industrial biocatalysts. For more information on how this model was trained please see the [HyperMPNN github page](https://github.com/meilerlab/HyperMPNN).
 - **Multistate Design**: Enables sequence design for multiple protein conformations at once, improving protein flexiblity and resulting in more realistic protein structures.
 
 ### Key Publications
@@ -37,12 +31,11 @@ The following publications describe the underlying methods and models integrated
 
 - [Overview](#overview)
   - [Description](#description)
-  - [What are Message Passing Neural Networks (MPNNs)?](#what-are-message-passing-neural-networks-mpnns)
   - [Key Publications](#key-publications)
 - [Features](#features)
 - [Getting Started](#getting-started)
   - [Installation Guide](#installation-guide)
-  - [Docker image](#docker-image)
+  - [Docker Image](#docker-image)
 - [Examples](#examples)
   - [Basic Use Case](#basic_use_case)
   - [Multi-State Design](#multi_state_design)
@@ -85,8 +78,8 @@ bash get_model_params.sh model_params
 <summary><strong>Option A: Using Conda</strong></summary>
 
 ```
-conda create -n rosettampnn_env python=3.11
-conda activate rosettampnn_env
+conda create -n rosettampnn python=3.11
+conda activate rosettampnn
 pip install -r requirements.txt
 pip install -e .
 ```
@@ -104,7 +97,7 @@ conda activate rosettampnn
 <summary><strong>Option B: Using <code>uv</code> and venv</strong></summary>
 
 ```
-#create virtual environment with python3.11
+#create virtual environment with python 3.11
 uv venv --python=python3.11
 source .venv/bin/activate
 #if cuda is available
@@ -120,7 +113,7 @@ Whenever you want to run RosettaMPNN, activate your environment:
 ```
 source .venv/bin/activate
 ```
-If you do not have <code>uv</code> installed, run:
+If you do not have `uv` installed, run:
 ```
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
@@ -133,7 +126,7 @@ _Docker image coming soon_
 
 <a id='basic_use_case'></a>
 <details>
-<summary><strong>Basic Use Case</strong></summary>
+<summary><strong>Basic Use Case</strong></summary> 
 
 For this example we will use 1BC8.pdb from the example inputs.
 **Flags explained:**
@@ -146,7 +139,7 @@ For this example we will use 1BC8.pdb from the example inputs.
 python -m RosettaMPNN \
 --out_folder ./out/ \
 --pdb_path ~/RosettaMPNN/inputs/1BC8.pdb \
---checkpoint_protein_mpnn ~/RosettaMPNN/model_params/ proteinmpnn_v_48_020.pt 
+--checkpoint_protein_mpnn ~/RosettaMPNN/model_params/proteinmpnn_v_48_020.pt 
 ```
 **Expected outputs:**
 - `seqs/`: Designed sequence as `1BC8.fa`
@@ -157,7 +150,7 @@ python -m RosettaMPNN \
 
 <a id='multi_state_design'></a>
 <details>
-<summary><strong>Multi-State Design</strong></summary>
+<summary><strong>Multi-State Design</strong></summary> 
 
 > ⚠️ **Experimental Feature**: The multi-state implementation is not yet scientifically validated. Use with caution.
 
@@ -165,7 +158,7 @@ Multi-state design allows you to design sequences compatible with multiple struc
 Originally implemented by the Kuhlman lab ([GitHub](https://github.com/Kuhlman-Lab/proteinmpnn)).
 
 **Flags explained:**
-- `--multi_state_pdb_path`: Path to a json file listing the PDBS to be included 
+- `--multi_state_pdb_path`: Path to a JSON file listing the PDBs to be included 
 - `--multi_state_constraints`: Semicolon-separated list of multi-state design constraints, commas separate individual residue sets within a constraint
 
 **Example Command Line**
@@ -199,7 +192,7 @@ Same as basic use case, plus:
 <details>
 <summary><strong>Using HyperMPNN Weights</strong></summary>
 
-The retrained HyperMPNN weights were downloaded when you ran `get_model_params.sh`. You can use these weights with the `protein_mpnn` model option. This is **not compatible** with the `ligand_mpnn` model. 
+The retrained HyperMPNN weights were downloaded when you ran `get_model_params.sh`. You can use these weights with the `protein_mpnn` model option. These weights are **not compatible** with the `ligand_mpnn` model. 
 
 **Example Command Line**
 ```
@@ -211,21 +204,23 @@ python -m RosettaMPNN \
 ```
 </details>
 
+
 **For more information on how to run RosettaMPNN and different options available see the [documentation](https://woodsh17.github.io/RosettaMPNN/).** 
 
 ---
 ## Developing 
 
 ### Contributing
-We welcome contributions to improve RosettaMPNN. We use a fork-and-PR system for contribution. To contribute to RosettaMPNN, please fork the RosettaMPNN repo under your own Github user space. You can then develop your additions in your own space. Once you're ready to contribute it back, open a PR agaist the main RosettaMPNN repo.
+We welcome contributions to improve RosettaMPNN. We use a fork-and-PR system for contribution. To contribute to RosettaMPNN, please fork the RosettaMPNN repo under your own GitHub user space. You can then develop your additions in your own space. Once you're ready to contribute it back, open a PR against the main RosettaMPNN repo.
 
 ### Testing
-- Unit and integration tests are provided in the `test/` directory.
-- Run all tests locally with:
+- Unit and integration tests are located in the `test/` directory.
+- To run tests locally, use:
   ```
   pytest test/
   ```
-- Continuous integration (CI) is planned for automated testing.
+- Continuous integration (CI) is set up with GitHub Actions to automatically run all unit and integration tests for pull requests targeting the `main` branch.
+- Please ensure that you add appropriate tests for any new code contributed to the repository.
 
 ---
 
