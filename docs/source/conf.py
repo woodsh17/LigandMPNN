@@ -27,10 +27,10 @@ exclude_patterns = []
 
 html_theme = 'furo'
 html_theme_options = {
-    "sidebar_hide_name":True,
+    "sidebar_hide_name":False,
     "top_of_page_buttons": ["edit"],
     ""
-    "announcement": "<em>THIS DOCUMENTATION IS CURRENTLY UNDER CONSTRUCTION</em>",
+    #"announcement": "<em>THIS DOCUMENTATION IS CURRENTLY UNDER CONSTRUCTION</em>",
     "light_css_variables": {
         "color-brand-primary": "#F68A33", # Rosetta Teal
         "color-brand-content": "#37939B", # Rosetta Orange

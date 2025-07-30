@@ -27,12 +27,12 @@ The recommended way to install RosettaMPNN is via [uv](https://docs.astral.sh/uv
     ```
     curl -LsSf https://astral.sh/uv/install.sh | sh
     ```
-    1. (Optional) Create an alias, if necessary, to call `uv` without giving the full path:
-        When `uv` is installed on your system it will specify the path that it is installed to. Use that path to make the alias, for example: 
+    1. (Optional) Create an alias (if necessary) to call `uv` without giving the full path:
+        When `uv` is installed on your system it will specify the path that it is installed to. Use that path to make the alias. 
         ```
         alias uv=/path/to/installation/of/uv
         ```
-        You can add this path to your `bash.rc` or `.zshrc` to have the alias automatically set up when you use your terminal. 
+        You can add this path to your `bash.rc` or `.zshrc` to have the alias automatically set when you use your terminal. 
 1. Create a virutal environment using Python 3.11 and activate it
     ```
     uv venv rosettampnn_venv --python 3.11
@@ -49,10 +49,11 @@ The recommended way to install RosettaMPNN is via [uv](https://docs.astral.sh/uv
         uv pip install -e .
         ```
 
-1. *(Optional but recommended)* Add RosettaMPNN to your PYTHONPATH:
+1. Add RosettaMPNN to your PYTHONPATH:
     ```
     export PYTHONPATH=/path/to/RosettaMPNN:$PYTHONPATH
     ```
+    *If you do not complete this step you will likely see a `ModuleNotFoundError: No module named 'openfold'` error.*
 
 </details>
 
