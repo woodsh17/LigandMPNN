@@ -1,3 +1,0 @@
-# Installation Guide
-
-If you're using a system with an AMD architecture, we recommend using the available [Docker image](#Docker). For users with ARM systems (e.g. Apple Silicon, linux-aarch64),  
