@@ -11,7 +11,7 @@ As one of the tools maintained by Rosetta Commons, the MPNN tools that compose R
 ### What MPNN tools are currently included? 
 - **ProteinMPNN**: The original MPNN tool that can couple amino acid sequences in different chains and is symmetry aware. It can be used to design <span style='color:#F68A33'>monomers</span>, <span style='color:#F68A33'>cyclic oligomers</span>, <span style='color:#F68A33'>protein nanoparticles</span>, and <span style='color:#F68A33'>protein-protein interfaces</span>.
 - **LigandMPNN**: Extends the capabilities of ProteinMPNN to also be able to design protein sequences in the context of small molecules, nucleotides and metals. This allows for the design of <span style='color:#F68A33'>small molecule binding proteins</span>, <span style='color:#F68A33'>sensors</span>, and <span style='color:#F68A33'>enzymes</span>.
-- **HyperMPNN**: Adds a new model to construct <span style='color:#F68A33'>highly thermostable proteins</span>. These proteins are incredibly useful for the creation of vaccines, protein nanoparticles for drug delivery, and industrial biocatalysts.
+- **HyperMPNN**: Adds a new model to construct <span style='color:#F68A33'>highly thermostable proteins</span>. These proteins are incredibly useful for the creation of vaccines, protein nanoparticles for drug delivery, and industrial biocatalysts. For more information on how this model was trained please see the [HyperMPNN github page](https://github.com/meilerlab/HyperMPNN).
 - **Multistate Design**: Enables sequence design for multiple protein conformations at once, improving protein flexibility and resulting in more realistic protein structures.
 
 ### Key Publications
