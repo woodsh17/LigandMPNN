@@ -471,6 +471,7 @@ python score.py \
 ```
 
 ## Side chain packing examples
+The `pack_side_chains` option can be used to generate output PDBs with the proper side chain identities and atoms already present. 
 
 ### Design a new sequence and pack side chains (return 1 side chain packing sample - fast)
 Design a new sequence using any of the available models and also pack side chains of the new sequence. Return only a single solution for the side chain packing.

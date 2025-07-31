@@ -142,7 +142,7 @@ python -m RosettaMPNN \
 --checkpoint_protein_mpnn ~/RosettaMPNN/model_params/proteinmpnn_v_48_020.pt 
 ```
 **Expected outputs:**
-- `seqs/`: Designed sequence as `1BC8.fa`
+- `seqs/`: Designed sequence as `1BC8.fa`. Confidence metric and sequence recovery is reported in the fasta file. The `overall_confidence` reflects the average confidence over the redesigned residues: `overall_confidence=exp[-mean_over_residues(log_probs)]` with a miniumum value of 0 and a max value of 1. **Higher numbers mean the model is more confident about that sequence.** Sequence recovery with respect to the input sequence is calculated only over the redesigned residues.  
 - `backbones/`: Output structure with predicted sequence as `1BC8.pdb`
 - `packed/`: (empty unless side-chain packing is specified)
 
