@@ -1,5 +1,6 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
+set -euo pipefail
+# this is incase of network timeou user will get notification instead of partial data set
 #make new directory for model parameters
 #e.g.   bash get_model_params.sh "./model_params"
 
