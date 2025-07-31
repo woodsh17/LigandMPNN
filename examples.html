@@ -1,0 +1,997 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contributors Guide" href="contributors_guide.html" /><link rel="prev" title="Model Weights" href="model_weights_ref.html" />
+
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.07.19 -->
+        <title>Examples - RosettaMPNN v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=acfd86a5" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=25af2a20" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  --color-brand-primary: #F68A33;
+  --color-brand-content: #37939B;
+  --color-admonition-background: #FB35D6;
+  --font-stack: Open Sans, sans-serif;
+  --font-stack--headings: Open Sans, sans-serif;
+  --color-background-hover: #DCE8E8ff;
+  --color-announcement-background: #F68A33dd;
+  --color-announcement-text: #070707;
+  --color-brand-visited: #37939B;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #37939B;
+  --color-brand-content: #F68A33;
+  --color-admonition-background: #FB35D6;
+  --font-stack: Open Sans, sans-serif;
+  --font-stack--headings: Open Sans, sans-serif;
+  --color-brand-visited: #37939B;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
+  --color-brand-primary: #37939B;
+  --color-brand-content: #F68A33;
+  --color-admonition-background: #FB35D6;
+  --font-stack: Open Sans, sans-serif;
+  --font-stack--headings: Open Sans, sans-serif;
+  --color-brand-visited: #37939B;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">RosettaMPNN v1.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <span class="sidebar-brand-text">RosettaMPNN v1.0.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme_link.html">README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license_link.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_weights_ref.html">Model Weights</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors_guide.html">Contributors Guide</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h1>
+<p>Here are examples of how to use some of the different options available in RosettaMPNN.</p>
+<section id="design">
+<h2>Design<a class="headerlink" href="#design" title="Link to this heading">¶</a></h2>
+<section id="default">
+<h3>Default<a class="headerlink" href="#default" title="Link to this heading">¶</a></h3>
+<p>Default settings will run ProteinMPNN.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/default&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="temperature">
+<h3>–temperature<a class="headerlink" href="#temperature" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">--temperature</span> <span class="pre">0.05</span></code> Change sampling temperature (higher temperature gives more sequence diversity).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">temperature</span> <span class="mf">0.05</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/temperature&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="seed">
+<h3>–seed<a class="headerlink" href="#seed" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">--seed</span></code> Not selecting a seed will run with a random seed. Running this multiple times will give different results.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/random_seed&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="verbose">
+<h3>–verbose<a class="headerlink" href="#verbose" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">--verbose</span> <span class="pre">0</span></code> Do not print any statements.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">verbose</span> <span class="mi">0</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/verbose&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="save-stats">
+<h3>–save_stats<a class="headerlink" href="#save-stats" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">--save_stats</span> <span class="pre">1</span></code> Save sequence design statistics.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#[&#39;generated_sequences&#39;, &#39;sampling_probs&#39;, &#39;log_probs&#39;, &#39;decoding_order&#39;, &#39;native_sequence&#39;, &#39;mask&#39;, &#39;chain_mask&#39;, &#39;seed&#39;, &#39;temperature&#39;]</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/save_stats&quot;</span> \
+        <span class="o">--</span><span class="n">save_stats</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+<section id="fixed-residues">
+<h3>–fixed_residues<a class="headerlink" href="#fixed-residues" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">--fixed_residues</span></code> Fixing specific amino acids. This example fixes the first 10 residues in chain C and adds global bias towards A (alanine). The output should have all alanines except the first 10 residues should be the same as in the input sequence since those are fixed.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/fix_residues&quot;</span> \
+        <span class="o">--</span><span class="n">fixed_residues</span> <span class="s2">&quot;C1 C2 C3 C4 C5 C6 C7 C8 C9 C10&quot;</span> \
+        <span class="o">--</span><span class="n">bias_AA</span> <span class="s2">&quot;A:10.0&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="redesigned-residues">
+<h3>–redesigned_residues<a class="headerlink" href="#redesigned-residues" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">--redesigned_residues</span></code> Specifying which residues need to be designed. This example redesigns the first 10 residues while fixing everything else.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/redesign_residues&quot;</span> \
+        <span class="o">--</span><span class="n">redesigned_residues</span> <span class="s2">&quot;C1 C2 C3 C4 C5 C6 C7 C8 C9 C10&quot;</span> \
+        <span class="o">--</span><span class="n">bias_AA</span> <span class="s2">&quot;A:10.0&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="number-of-batches">
+<h3>–number_of_batches<a class="headerlink" href="#number-of-batches" title="Link to this heading">¶</a></h3>
+<p>Design 15 sequences; with batch size 3 (can be 1 when using CPUs) and the number of batches 5.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/batch_size&quot;</span> \
+        <span class="o">--</span><span class="n">batch_size</span> <span class="mi">3</span> \
+        <span class="o">--</span><span class="n">number_of_batches</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</section>
+<section id="bias-aa">
+<h3>–bias_AA<a class="headerlink" href="#bias-aa" title="Link to this heading">¶</a></h3>
+<p>Global amino acid bias. In this example, output sequences are biased towards W, P, C and away from A.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">bias_AA</span> <span class="s2">&quot;W:3.0,P:3.0,C:3.0,A:-3.0&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/global_bias&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="bias-aa-per-residue">
+<h3>–bias_AA_per_residue<a class="headerlink" href="#bias-aa-per-residue" title="Link to this heading">¶</a></h3>
+<p>Specify per residue amino acid bias, e.g. make residues C1, C3, C5, and C7 to be prolines.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># {</span>
+<span class="c1"># &quot;C1&quot;: {&quot;G&quot;: -0.3, &quot;C&quot;: -2.0, &quot;P&quot;: 10.8},</span>
+<span class="c1"># &quot;C3&quot;: {&quot;P&quot;: 10.0},</span>
+<span class="c1"># &quot;C5&quot;: {&quot;G&quot;: -1.3, &quot;P&quot;: 10.0},</span>
+<span class="c1"># &quot;C7&quot;: {&quot;G&quot;: -1.3, &quot;P&quot;: 10.0}</span>
+<span class="c1"># }</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">bias_AA_per_residue</span> <span class="s2">&quot;./inputs/bias_AA_per_residue.json&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/per_residue_bias&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="omit-aa">
+<h3>–omit_AA<a class="headerlink" href="#omit-aa" title="Link to this heading">¶</a></h3>
+<p>Global amino acid restrictions. This is equivalent to using <code class="docutils literal notranslate"><span class="pre">--bias_AA</span></code> and setting bias to be a large negative number. The output should be just made of E, K, A.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">omit_AA</span> <span class="s2">&quot;CDFGHILMNPQRSTVWY&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/global_omit&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="omit-aa-per-residue">
+<h3>–omit_AA_per_residue<a class="headerlink" href="#omit-aa-per-residue" title="Link to this heading">¶</a></h3>
+<p>Per residue amino acid restrictions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># {</span>
+<span class="c1"># &quot;C1&quot;: &quot;ACDEFGHIKLMNPQRSTVW&quot;,</span>
+<span class="c1"># &quot;C3&quot;: &quot;ACDEFGHIKLMNPQRSTVW&quot;,</span>
+<span class="c1"># &quot;C5&quot;: &quot;ACDEFGHIKLMNPQRSTVW&quot;,</span>
+<span class="c1"># &quot;C7&quot;: &quot;ACDEFGHIKLMNPQRSTVW&quot;</span>
+<span class="c1"># }</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">omit_AA_per_residue</span> <span class="s2">&quot;./inputs/omit_AA_per_residue.json&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/per_residue_omit&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="symmetry-residues-symmetry-weights">
+<h3>–symmetry_residues, –symmetry_weights<a class="headerlink" href="#symmetry-residues-symmetry-weights" title="Link to this heading">¶</a></h3>
+<p>Designing sequences with symmetry, e.g. homooligomer/2-state proteins, etc. In this example make C1=C2=C3, also C4=C5, and C6=C7.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#total_logits += symmetry_weights[t]*logits</span>
+<span class="c1">#probs = torch.nn.functional.softmax((total_logits+bias_t) / temperature, dim=-1)</span>
+<span class="c1">#total_logits_123 = 0.33*logits_1+0.33*logits_2+0.33*logits_3</span>
+<span class="c1">#output should be ***ooxx</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/symmetry&quot;</span> \
+        <span class="o">--</span><span class="n">symmetry_residues</span> <span class="s2">&quot;C1,C2,C3|C4,C5|C6,C7&quot;</span> \
+        <span class="o">--</span><span class="n">symmetry_weights</span> <span class="s2">&quot;0.33,0.33,0.33|0.5,0.5|0.5,0.5&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="homo-oligomer">
+<h3>–homo_oligomer<a class="headerlink" href="#homo-oligomer" title="Link to this heading">¶</a></h3>
+<p>Design homooligomer sequences. This automatically sets <code class="docutils literal notranslate"><span class="pre">--symmetry_residues</span></code> and <code class="docutils literal notranslate"><span class="pre">--symmetry_weights</span></code> assuming equal weighting from all chains.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/4GYT.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/homooligomer&quot;</span> \
+        <span class="o">--</span><span class="n">homo_oligomer</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">number_of_batches</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</section>
+<section id="file-ending">
+<h3>–file_ending<a class="headerlink" href="#file-ending" title="Link to this heading">¶</a></h3>
+<p>Outputs will have a specified ending; e.g. <code class="docutils literal notranslate"><span class="pre">1BC8_xyz.fa</span></code> instead of <code class="docutils literal notranslate"><span class="pre">1BC8.fa</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/file_ending&quot;</span> \
+        <span class="o">--</span><span class="n">file_ending</span> <span class="s2">&quot;_xyz&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="zero-indexed">
+<h3>–zero_indexed<a class="headerlink" href="#zero-indexed" title="Link to this heading">¶</a></h3>
+<p>Zero indexed names in /backbones/1BC8_0.pdb, 1BC8_1.pdb, 1BC8_2.pdb etc</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/zero_indexed&quot;</span> \
+        <span class="o">--</span><span class="n">zero_indexed</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">number_of_batches</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</section>
+<section id="chains-to-design">
+<h3>–chains_to_design<a class="headerlink" href="#chains-to-design" title="Link to this heading">¶</a></h3>
+<p>Specify which chains (e.g. “A,B,C”) need to be redesigned, other chains will be kept fixed. Outputs in seqs/backbones will still have atoms/sequences for the whole input PDB.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/4GYT.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/chains_to_design&quot;</span> \
+        <span class="o">--</span><span class="n">chains_to_design</span> <span class="s2">&quot;A,B&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="parse-these-chains-only">
+<h3>–parse_these_chains_only<a class="headerlink" href="#parse-these-chains-only" title="Link to this heading">¶</a></h3>
+<p>Parse and design only specified chains (e.g. “A,B,C”). Outputs will have only specified chains.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/4GYT.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/parse_these_chains_only&quot;</span> \
+        <span class="o">--</span><span class="n">parse_these_chains_only</span> <span class="s2">&quot;A,B&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="model-type-ligand-mpnn">
+<h3>–model_type “ligand_mpnn”<a class="headerlink" href="#model-type-ligand-mpnn" title="Link to this heading">¶</a></h3>
+<p>Run LigandMPNN with default settings.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/ligandmpnn_default&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="checkpoint-ligand-mpnn">
+<h3>–checkpoint_ligand_mpnn<a class="headerlink" href="#checkpoint-ligand-mpnn" title="Link to this heading">¶</a></h3>
+<p>Run LigandMPNN using 0.05A model by specifying <code class="docutils literal notranslate"><span class="pre">--checkpoint_ligand_mpnn</span></code> flag.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">checkpoint_ligand_mpnn</span> <span class="s2">&quot;./model_params/ligandmpnn_v_32_005_25.pt&quot;</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/ligandmpnn_v_32_005_25&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="ligand-mpnn-use-atom-context">
+<h3>–ligand_mpnn_use_atom_context<a class="headerlink" href="#ligand-mpnn-use-atom-context" title="Link to this heading">¶</a></h3>
+<p>Setting <code class="docutils literal notranslate"><span class="pre">--ligand_mpnn_use_atom_context</span> <span class="pre">0</span></code> will mask all ligand atoms. This can be used to assess how much ligand atoms affect AA probabilities.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/ligandmpnn_no_context&quot;</span> \
+        <span class="o">--</span><span class="n">ligand_mpnn_use_atom_context</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+<section id="ligand-mpnn-use-side-chain-context">
+<h3>–ligand_mpnn_use_side_chain_context<a class="headerlink" href="#ligand-mpnn-use-side-chain-context" title="Link to this heading">¶</a></h3>
+<p>Use fixed residue side chain atoms as extra ligand atoms.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/ligandmpnn_use_side_chain_atoms&quot;</span> \
+        <span class="o">--</span><span class="n">ligand_mpnn_use_side_chain_context</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">fixed_residues</span> <span class="s2">&quot;C1 C2 C3 C4 C5 C6 C7 C8 C9 C10&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="model-type-soluble-mpnn">
+<h3>–model_type “soluble_mpnn”<a class="headerlink" href="#model-type-soluble-mpnn" title="Link to this heading">¶</a></h3>
+<p>Run SolubleMPNN (ProteinMPNN-like model with only soluble proteins in the training dataset).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;soluble_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/soluble_mpnn_default&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="model-type-global-label-membrane-mpnn">
+<h3>–model_type “global_label_membrane_mpnn”<a class="headerlink" href="#model-type-global-label-membrane-mpnn" title="Link to this heading">¶</a></h3>
+<p>Run global label membrane MPNN (trained with extra input - binary label soluble vs not) <code class="docutils literal notranslate"><span class="pre">--global_transmembrane_label</span> <span class="pre">#1</span> <span class="pre">-</span> <span class="pre">membrane,</span> <span class="pre">0</span> <span class="pre">-</span> <span class="pre">soluble</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;global_label_membrane_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/global_label_membrane_mpnn_0&quot;</span> \
+        <span class="o">--</span><span class="n">global_transmembrane_label</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+<section id="model-type-per-residue-label-membrane-mpnn">
+<h3>–model_type “per_residue_label_membrane_mpnn”<a class="headerlink" href="#model-type-per-residue-label-membrane-mpnn" title="Link to this heading">¶</a></h3>
+<p>Run per residue label membrane MPNN (trained with extra input per residue specifying buried (hydrophobic), interface (polar), or other type residues; 3 classes).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;per_residue_label_membrane_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/per_residue_label_membrane_mpnn_default&quot;</span> \
+        <span class="o">--</span><span class="n">transmembrane_buried</span> <span class="s2">&quot;C1 C2 C3 C11&quot;</span> \
+        <span class="o">--</span><span class="n">transmembrane_interface</span> <span class="s2">&quot;C4 C5 C6 C22&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="hypermpnn-weights">
+<h3>HyperMPNN weights<a class="headerlink" href="#hypermpnn-weights" title="Link to this heading">¶</a></h3>
+<p>Run ProteinMPNN with HyperMPNN weights</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./test/integration/outputs/hyper&quot;</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;protein_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">checkpoint_protein_mpnn</span> <span class="s2">&quot;model_params/hypermpnn_v48_020_epoch300.pt&quot;</span> \
+</pre></div>
+</div>
+</section>
+<section id="fasta-seq-separation">
+<h3>–fasta_seq_separation<a class="headerlink" href="#fasta-seq-separation" title="Link to this heading">¶</a></h3>
+<p>Choose a symbol to put between different chains in fasta output format. It’s recommended to PDB output format to deal with residue jumps and multiple chain parsing.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/fasta_seq_separation&quot;</span> \
+        <span class="o">--</span><span class="n">fasta_seq_separation</span> <span class="s2">&quot;:&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="pdb-path-multi">
+<h3>–pdb_path_multi<a class="headerlink" href="#pdb-path-multi" title="Link to this heading">¶</a></h3>
+<p>Specify multiple PDB input paths. This is more efficient since the model needs to be loaded from the checkpoint once.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#{</span>
+<span class="c1">#&quot;./inputs/1BC8.pdb&quot;: &quot;&quot;,</span>
+<span class="c1">#&quot;./inputs/4GYT.pdb&quot;: &quot;&quot;</span>
+<span class="c1">#}</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">pdb_path_multi</span> <span class="s2">&quot;./inputs/pdb_ids.json&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/pdb_path_multi&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span>
+</pre></div>
+</div>
+</section>
+<section id="fixed-residues-multi">
+<h3>–fixed_residues_multi<a class="headerlink" href="#fixed-residues-multi" title="Link to this heading">¶</a></h3>
+<p>Specify fixed residues when using <code class="docutils literal notranslate"><span class="pre">--pdb_path_multi</span></code> flag.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#{</span>
+<span class="c1">#&quot;./inputs/1BC8.pdb&quot;: &quot;C1 C2 C3 C4 C5 C10 C22&quot;,</span>
+<span class="c1">#&quot;./inputs/4GYT.pdb&quot;: &quot;A7 A8 A9 A10 A11 A12 A13 B38&quot;</span>
+<span class="c1">#}</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">pdb_path_multi</span> <span class="s2">&quot;./inputs/pdb_ids.json&quot;</span> \
+        <span class="o">--</span><span class="n">fixed_residues_multi</span> <span class="s2">&quot;./inputs/fix_residues_multi.json&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/fixed_residues_multi&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span>
+</pre></div>
+</div>
+</section>
+<section id="redesigned-residues-multi">
+<h3>–redesigned_residues_multi<a class="headerlink" href="#redesigned-residues-multi" title="Link to this heading">¶</a></h3>
+<p>Specify which residues need to be redesigned when using <code class="docutils literal notranslate"><span class="pre">--pdb_path_multi</span></code> flag.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#{</span>
+<span class="c1">#&quot;./inputs/1BC8.pdb&quot;: &quot;C1 C2 C3 C4 C5 C10&quot;,</span>
+<span class="c1">#&quot;./inputs/4GYT.pdb&quot;: &quot;A7 A8 A9 A10 A12 A13 B38&quot;</span>
+<span class="c1">#}</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">pdb_path_multi</span> <span class="s2">&quot;./inputs/pdb_ids.json&quot;</span> \
+        <span class="o">--</span><span class="n">redesigned_residues_multi</span> <span class="s2">&quot;./inputs/redesigned_residues_multi.json&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/redesigned_residues_multi&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span>
+</pre></div>
+</div>
+</section>
+<section id="omit-aa-per-residue-multi">
+<h3>–omit_AA_per_residue_multi<a class="headerlink" href="#omit-aa-per-residue-multi" title="Link to this heading">¶</a></h3>
+<p>Specify which residues need to be omitted when using <code class="docutils literal notranslate"><span class="pre">--pdb_path_multi</span></code> flag.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#{</span>
+<span class="c1">#&quot;./inputs/1BC8.pdb&quot;: {&quot;C1&quot;:&quot;ACDEFGHILMNPQRSTVWY&quot;, &quot;C2&quot;:&quot;ACDEFGHILMNPQRSTVWY&quot;, &quot;C3&quot;:&quot;ACDEFGHILMNPQRSTVWY&quot;},</span>
+<span class="c1">#&quot;./inputs/4GYT.pdb&quot;: {&quot;A7&quot;:&quot;ACDEFGHILMNPQRSTVWY&quot;, &quot;A8&quot;:&quot;ACDEFGHILMNPQRSTVWY&quot;}</span>
+<span class="c1">#}</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">pdb_path_multi</span> <span class="s2">&quot;./inputs/pdb_ids.json&quot;</span> \
+        <span class="o">--</span><span class="n">omit_AA_per_residue_multi</span> <span class="s2">&quot;./inputs/omit_AA_per_residue_multi.json&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/omit_AA_per_residue_multi&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span>
+</pre></div>
+</div>
+</section>
+<section id="bias-aa-per-residue-multi">
+<h3>–bias_AA_per_residue_multi<a class="headerlink" href="#bias-aa-per-residue-multi" title="Link to this heading">¶</a></h3>
+<p>Specify amino acid biases per residue when using <code class="docutils literal notranslate"><span class="pre">--pdb_path_multi</span></code> flag.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#{</span>
+<span class="c1">#&quot;./inputs/1BC8.pdb&quot;: {&quot;C1&quot;:{&quot;A&quot;:3.0, &quot;P&quot;:-2.0}, &quot;C2&quot;:{&quot;W&quot;:10.0, &quot;G&quot;:-0.43}},</span>
+<span class="c1">#&quot;./inputs/4GYT.pdb&quot;: {&quot;A7&quot;:{&quot;Y&quot;:5.0, &quot;S&quot;:-2.0}, &quot;A8&quot;:{&quot;M&quot;:3.9, &quot;G&quot;:-0.43}}</span>
+<span class="c1">#}</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">pdb_path_multi</span> <span class="s2">&quot;./inputs/pdb_ids.json&quot;</span> \
+        <span class="o">--</span><span class="n">bias_AA_per_residue_multi</span> <span class="s2">&quot;./inputs/bias_AA_per_residue_multi.json&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/bias_AA_per_residue_multi&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span>
+</pre></div>
+</div>
+</section>
+<section id="ligand-mpnn-cutoff-for-score">
+<h3>–ligand_mpnn_cutoff_for_score<a class="headerlink" href="#ligand-mpnn-cutoff-for-score" title="Link to this heading">¶</a></h3>
+<p>This sets the cutoff distance in angstroms to select residues that are considered to be close to ligand atoms. This flag only affects the <code class="docutils literal notranslate"><span class="pre">num_ligand_res</span></code> and <code class="docutils literal notranslate"><span class="pre">ligand_confidence</span></code> in the output fasta files.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">ligand_mpnn_cutoff_for_score</span> <span class="s2">&quot;6.0&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/ligand_mpnn_cutoff_for_score&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="specifying-residues-with-insertion-codes">
+<h3>Specifying residues with insertion codes<a class="headerlink" href="#specifying-residues-with-insertion-codes" title="Link to this heading">¶</a></h3>
+<p>You can specify residue using chain_id + residue_number + insersion_code; e.g. redesign only residue B82, B82A, B82B, B82C.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/2GFB.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/insertion_code&quot;</span> \
+        <span class="o">--</span><span class="n">redesigned_residues</span> <span class="s2">&quot;B82 B82A B82B B82C&quot;</span> \
+        <span class="o">--</span><span class="n">parse_these_chains_only</span> <span class="s2">&quot;B&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="parse-atoms-with-zero-occupancy">
+<h3>Parse atoms with zero occupancy<a class="headerlink" href="#parse-atoms-with-zero-occupancy" title="Link to this heading">¶</a></h3>
+<p>Parse atoms in the PDB files with zero occupancy too.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/parse_atoms_with_zero_occupancy&quot;</span> \
+        <span class="o">--</span><span class="n">parse_atoms_with_zero_occupancy</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+<section id="multi-state-design-single-constraint">
+<h3>Multi-State Design - single constraint<a class="headerlink" href="#multi-state-design-single-constraint" title="Link to this heading">¶</a></h3>
+<p>Design single chain for multiple states. Each state is comma separated, each state consist of PDB_name:Start_residue-Stop_residue:Weight. Residues should be specified with the chain ID followed by the residue number.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="o">./</span><span class="n">outputs</span><span class="o">/</span><span class="n">msd_single</span><span class="o">/</span> \
+        <span class="o">--</span><span class="n">multi_state_pdb_path</span> <span class="o">./</span><span class="n">inputs</span><span class="o">/</span><span class="n">msd_pdbs</span><span class="o">.</span><span class="n">json</span> \
+        <span class="o">--</span><span class="n">multi_state_constraints</span> <span class="mi">4</span><span class="n">GYT_dimer</span><span class="p">:</span><span class="n">A7</span><span class="o">-</span><span class="n">A183</span><span class="p">:</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">4</span><span class="n">GYT_dimer</span><span class="p">:</span><span class="n">B7</span><span class="o">-</span><span class="n">B183</span><span class="p">:</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">4</span><span class="n">GYT_monomer</span><span class="p">:</span><span class="n">A7</span><span class="o">-</span><span class="n">A183</span><span class="p">:</span><span class="mi">1</span> \
+</pre></div>
+</div>
+</section>
+<section id="multi-state-design-multiple-constraints">
+<h3>Multi-State Design - multiple constraints<a class="headerlink" href="#multi-state-design-multiple-constraints" title="Link to this heading">¶</a></h3>
+<p>Design multiple chains with multiple states. Each constraint is separated by a “;”. Within each constraint the states are specified following the same format as above. Negative weights can be used for negative design.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="o">./</span><span class="n">outputs</span><span class="o">/</span><span class="n">msd_single</span><span class="o">/</span> \
+        <span class="o">--</span><span class="n">multi_state_pdb_path</span> <span class="o">./</span><span class="n">inputs</span><span class="o">/</span><span class="n">msd_multi_constraint_pdbs</span><span class="o">.</span><span class="n">json</span> \
+        <span class="o">--</span><span class="n">multi_state_constraints</span> <span class="mi">1</span><span class="n">a0o</span><span class="p">:</span><span class="n">A1</span><span class="o">-</span><span class="n">A128</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="n">a0o_chainA_monomer</span><span class="p">:</span><span class="n">A1</span><span class="o">-</span><span class="n">A128</span><span class="p">:</span><span class="mi">1</span><span class="p">;</span><span class="mi">1</span><span class="n">a0o</span><span class="p">:</span><span class="n">B1</span><span class="o">-</span><span class="n">B70</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="n">a0o_chainB_monomer</span><span class="p">:</span><span class="n">B1</span><span class="o">-</span><span class="n">B70</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span> \
+</pre></div>
+</div>
+</section>
+</section>
+<section id="scoring-examples">
+<h2>Scoring examples<a class="headerlink" href="#scoring-examples" title="Link to this heading">¶</a></h2>
+<section id="autoregressive-with-sequence-info">
+<h3>Autoregressive with sequence info<a class="headerlink" href="#autoregressive-with-sequence-info" title="Link to this heading">¶</a></h3>
+<p>Get probabilities/scores for backbone-sequence pairs using autoregressive probabilities: p(AA_1|backbone), p(AA_2|backbone, AA_1) etc. These probabilities will depend on the decoding order, so it’s recomended to set number_of_batches to at least 10.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">score</span><span class="o">.</span><span class="n">py</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">autoregressive_score</span> <span class="mi">1</span>\
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./outputs/ligandmpnn_default/backbones/1BC8_1.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/autoregressive_score_w_seq&quot;</span> \
+        <span class="o">--</span><span class="n">use_sequence</span> <span class="mi">1</span>\
+        <span class="o">--</span><span class="n">batch_size</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">number_of_batches</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</section>
+<section id="autoregressive-with-backbone-info-only">
+<h3>Autoregressive with backbone info only<a class="headerlink" href="#autoregressive-with-backbone-info-only" title="Link to this heading">¶</a></h3>
+<p>Get probabilities/scores for backbone using probabilities: p(AA_1|backbone), p(AA_2|backbone) etc. These probabilities will depend on the decoding order, so it’s recomended to set number_of_batches to at least 10.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">score</span><span class="o">.</span><span class="n">py</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">autoregressive_score</span> <span class="mi">1</span>\
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./outputs/ligandmpnn_default/backbones/1BC8_1.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/autoregressive_score_wo_seq&quot;</span> \
+        <span class="o">--</span><span class="n">use_sequence</span> <span class="mi">0</span>\
+        <span class="o">--</span><span class="n">batch_size</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">number_of_batches</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</section>
+<section id="single-amino-acid-score-with-sequence-info">
+<h3>Single amino acid score with sequence info<a class="headerlink" href="#single-amino-acid-score-with-sequence-info" title="Link to this heading">¶</a></h3>
+<p>Get probabilities/scores for backbone-sequence pairs using single aa probabilities: p(AA_1|backbone, AA_{all except AA_1}), p(AA_2|backbone, AA_{all except AA_2}) etc. These probabilities will depend on the decoding order, so it’s recomended to set number_of_batches to at least 10.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">score</span><span class="o">.</span><span class="n">py</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">single_aa_score</span> <span class="mi">1</span>\
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./outputs/ligandmpnn_default/backbones/1BC8_1.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/single_aa_score_w_seq&quot;</span> \
+        <span class="o">--</span><span class="n">use_sequence</span> <span class="mi">1</span>\
+        <span class="o">--</span><span class="n">batch_size</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">number_of_batches</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</section>
+<section id="single-amino-acid-score-with-backbone-info-only">
+<h3>Single amino acid score with backbone info only<a class="headerlink" href="#single-amino-acid-score-with-backbone-info-only" title="Link to this heading">¶</a></h3>
+<p>Get probabilities/scores for backbone-sequence pairs using single aa probabilities: p(AA_1|backbone), p(AA_2|backbone) etc. These probabilities will depend on the decoding order, so it’s recomended to set number_of_batches to at least 10.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">score</span><span class="o">.</span><span class="n">py</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">single_aa_score</span> <span class="mi">1</span>\
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./outputs/ligandmpnn_default/backbones/1BC8_1.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/single_aa_score_wo_seq&quot;</span> \
+        <span class="o">--</span><span class="n">use_sequence</span> <span class="mi">0</span>\
+        <span class="o">--</span><span class="n">batch_size</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">number_of_batches</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="side-chain-packing-examples">
+<h2>Side chain packing examples<a class="headerlink" href="#side-chain-packing-examples" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">pack_side_chains</span></code> option can be used to generate output PDBs with the proper side chain identities and atoms already present.</p>
+<section id="design-a-new-sequence-and-pack-side-chains-return-1-side-chain-packing-sample-fast">
+<h3>Design a new sequence and pack side chains (return 1 side chain packing sample - fast)<a class="headerlink" href="#design-a-new-sequence-and-pack-side-chains-return-1-side-chain-packing-sample-fast" title="Link to this heading">¶</a></h3>
+<p>Design a new sequence using any of the available models and also pack side chains of the new sequence. Return only a single solution for the side chain packing.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/sc_default_fast&quot;</span> \
+        <span class="o">--</span><span class="n">pack_side_chains</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">number_of_packs_per_design</span> <span class="mi">0</span> \
+        <span class="o">--</span><span class="n">pack_with_ligand_context</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+<section id="design-a-new-sequence-and-pack-side-chains-return-4-side-chain-packing-samples">
+<h3>Design a new sequence and pack side chains (return 4 side chain packing samples)<a class="headerlink" href="#design-a-new-sequence-and-pack-side-chains-return-4-side-chain-packing-samples" title="Link to this heading">¶</a></h3>
+<p>Same as above, but returns 4 independent samples for side chains. b-factor shows log prob density per chi angle group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/sc_default&quot;</span> \
+        <span class="o">--</span><span class="n">pack_side_chains</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">number_of_packs_per_design</span> <span class="mi">4</span> \
+        <span class="o">--</span><span class="n">pack_with_ligand_context</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+<section id="fix-specific-residues-fors-sequence-design-and-packing">
+<h3>Fix specific residues fors sequence design and packing<a class="headerlink" href="#fix-specific-residues-fors-sequence-design-and-packing" title="Link to this heading">¶</a></h3>
+<p>This option will not repack side chains of the fixed residues, but use them as a context.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/sc_fixed_residues&quot;</span> \
+        <span class="o">--</span><span class="n">pack_side_chains</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">number_of_packs_per_design</span> <span class="mi">4</span> \
+        <span class="o">--</span><span class="n">pack_with_ligand_context</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">fixed_residues</span> <span class="s2">&quot;C6 C7 C8 C9 C10 C11 C12 C13 C14 C15&quot;</span> \
+        <span class="o">--</span><span class="n">repack_everything</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+<section id="fix-specific-residues-for-sequence-design-but-repack-everything">
+<h3>Fix specific residues for sequence design but repack everything<a class="headerlink" href="#fix-specific-residues-for-sequence-design-but-repack-everything" title="Link to this heading">¶</a></h3>
+<p>This option will repacks all the residues.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/sc_fixed_residues_full_repack&quot;</span> \
+        <span class="o">--</span><span class="n">pack_side_chains</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">number_of_packs_per_design</span> <span class="mi">4</span> \
+        <span class="o">--</span><span class="n">pack_with_ligand_context</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">fixed_residues</span> <span class="s2">&quot;C6 C7 C8 C9 C10 C11 C12 C13 C14 C15&quot;</span> \
+        <span class="o">--</span><span class="n">repack_everything</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+<section id="design-a-new-sequence-using-ligandmpnn-but-pack-side-chains-without-considering-ligand-dna-etc-atoms">
+<h3>Design a new sequence using LigandMPNN but pack side chains without considering ligand/DNA etc atoms<a class="headerlink" href="#design-a-new-sequence-using-ligandmpnn-but-pack-side-chains-without-considering-ligand-dna-etc-atoms" title="Link to this heading">¶</a></h3>
+<p>You can run side chain packing without taking into account context atoms like DNA atoms. This most likely will results in side chain clashing with context atoms, but it might be interesting to see how model’s uncertainty changes when ligand atoms are present vs not for side chain conformations.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">RosettaMPNN</span> \
+        <span class="o">--</span><span class="n">model_type</span> <span class="s2">&quot;ligand_mpnn&quot;</span> \
+        <span class="o">--</span><span class="n">seed</span> <span class="mi">111</span> \
+        <span class="o">--</span><span class="n">pdb_path</span> <span class="s2">&quot;./inputs/1BC8.pdb&quot;</span> \
+        <span class="o">--</span><span class="n">out_folder</span> <span class="s2">&quot;./outputs/sc_no_context&quot;</span> \
+        <span class="o">--</span><span class="n">pack_side_chains</span> <span class="mi">1</span> \
+        <span class="o">--</span><span class="n">number_of_packs_per_design</span> <span class="mi">4</span> \
+        <span class="o">--</span><span class="n">pack_with_ligand_context</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="contributors_guide.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Contributors Guide</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="model_weights_ref.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Model Weights</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Justas Dauparas, Ivan Anishchenko, Nate Bennett, Hua Bai, Robert Ragotte, Lukas F. Miles, Basile I. M. Wicky, Alexis Courbet, Robbert Jan de Haas, Neville Bethel, Phlip J. Y. Leung, Timothy F. Huddy, Sam Pellock, Doug Tischer, Federick Chan, Hannah Nguyen, Alex Kang, Banumathi Sankaran, Brian Koepnick, Asim Bera, Neil King, David Baker, Gyu Rie Lee, Robert Pecoraro, Linna An, Cameron Glasscock, Moritz Ertelt, Phillip Schlegel, Max Beining, Leonard Kaysser, Jens Meiler, Clara T. Schoeder
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Examples</a><ul>
+<li><a class="reference internal" href="#design">Design</a><ul>
+<li><a class="reference internal" href="#default">Default</a></li>
+<li><a class="reference internal" href="#temperature">–temperature</a></li>
+<li><a class="reference internal" href="#seed">–seed</a></li>
+<li><a class="reference internal" href="#verbose">–verbose</a></li>
+<li><a class="reference internal" href="#save-stats">–save_stats</a></li>
+<li><a class="reference internal" href="#fixed-residues">–fixed_residues</a></li>
+<li><a class="reference internal" href="#redesigned-residues">–redesigned_residues</a></li>
+<li><a class="reference internal" href="#number-of-batches">–number_of_batches</a></li>
+<li><a class="reference internal" href="#bias-aa">–bias_AA</a></li>
+<li><a class="reference internal" href="#bias-aa-per-residue">–bias_AA_per_residue</a></li>
+<li><a class="reference internal" href="#omit-aa">–omit_AA</a></li>
+<li><a class="reference internal" href="#omit-aa-per-residue">–omit_AA_per_residue</a></li>
+<li><a class="reference internal" href="#symmetry-residues-symmetry-weights">–symmetry_residues, –symmetry_weights</a></li>
+<li><a class="reference internal" href="#homo-oligomer">–homo_oligomer</a></li>
+<li><a class="reference internal" href="#file-ending">–file_ending</a></li>
+<li><a class="reference internal" href="#zero-indexed">–zero_indexed</a></li>
+<li><a class="reference internal" href="#chains-to-design">–chains_to_design</a></li>
+<li><a class="reference internal" href="#parse-these-chains-only">–parse_these_chains_only</a></li>
+<li><a class="reference internal" href="#model-type-ligand-mpnn">–model_type “ligand_mpnn”</a></li>
+<li><a class="reference internal" href="#checkpoint-ligand-mpnn">–checkpoint_ligand_mpnn</a></li>
+<li><a class="reference internal" href="#ligand-mpnn-use-atom-context">–ligand_mpnn_use_atom_context</a></li>
+<li><a class="reference internal" href="#ligand-mpnn-use-side-chain-context">–ligand_mpnn_use_side_chain_context</a></li>
+<li><a class="reference internal" href="#model-type-soluble-mpnn">–model_type “soluble_mpnn”</a></li>
+<li><a class="reference internal" href="#model-type-global-label-membrane-mpnn">–model_type “global_label_membrane_mpnn”</a></li>
+<li><a class="reference internal" href="#model-type-per-residue-label-membrane-mpnn">–model_type “per_residue_label_membrane_mpnn”</a></li>
+<li><a class="reference internal" href="#hypermpnn-weights">HyperMPNN weights</a></li>
+<li><a class="reference internal" href="#fasta-seq-separation">–fasta_seq_separation</a></li>
+<li><a class="reference internal" href="#pdb-path-multi">–pdb_path_multi</a></li>
+<li><a class="reference internal" href="#fixed-residues-multi">–fixed_residues_multi</a></li>
+<li><a class="reference internal" href="#redesigned-residues-multi">–redesigned_residues_multi</a></li>
+<li><a class="reference internal" href="#omit-aa-per-residue-multi">–omit_AA_per_residue_multi</a></li>
+<li><a class="reference internal" href="#bias-aa-per-residue-multi">–bias_AA_per_residue_multi</a></li>
+<li><a class="reference internal" href="#ligand-mpnn-cutoff-for-score">–ligand_mpnn_cutoff_for_score</a></li>
+<li><a class="reference internal" href="#specifying-residues-with-insertion-codes">Specifying residues with insertion codes</a></li>
+<li><a class="reference internal" href="#parse-atoms-with-zero-occupancy">Parse atoms with zero occupancy</a></li>
+<li><a class="reference internal" href="#multi-state-design-single-constraint">Multi-State Design - single constraint</a></li>
+<li><a class="reference internal" href="#multi-state-design-multiple-constraints">Multi-State Design - multiple constraints</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scoring-examples">Scoring examples</a><ul>
+<li><a class="reference internal" href="#autoregressive-with-sequence-info">Autoregressive with sequence info</a></li>
+<li><a class="reference internal" href="#autoregressive-with-backbone-info-only">Autoregressive with backbone info only</a></li>
+<li><a class="reference internal" href="#single-amino-acid-score-with-sequence-info">Single amino acid score with sequence info</a></li>
+<li><a class="reference internal" href="#single-amino-acid-score-with-backbone-info-only">Single amino acid score with backbone info only</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#side-chain-packing-examples">Side chain packing examples</a><ul>
+<li><a class="reference internal" href="#design-a-new-sequence-and-pack-side-chains-return-1-side-chain-packing-sample-fast">Design a new sequence and pack side chains (return 1 side chain packing sample - fast)</a></li>
+<li><a class="reference internal" href="#design-a-new-sequence-and-pack-side-chains-return-4-side-chain-packing-samples">Design a new sequence and pack side chains (return 4 side chain packing samples)</a></li>
+<li><a class="reference internal" href="#fix-specific-residues-fors-sequence-design-and-packing">Fix specific residues fors sequence design and packing</a></li>
+<li><a class="reference internal" href="#fix-specific-residues-for-sequence-design-but-repack-everything">Fix specific residues for sequence design but repack everything</a></li>
+<li><a class="reference internal" href="#design-a-new-sequence-using-ligandmpnn-but-pack-side-chains-without-considering-ligand-dna-etc-atoms">Design a new sequence using LigandMPNN but pack side chains without considering ligand/DNA etc atoms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=76e2d817"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>
