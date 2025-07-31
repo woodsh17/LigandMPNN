@@ -19,4 +19,6 @@ To contribute to the documentation, please refere to the contributors guide, lin
    license_link.rst
    docker.rst
    installation.md
+   model_weights_ref.md
+   examples.md
    contributors_guide.md
